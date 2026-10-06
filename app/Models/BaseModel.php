@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Action\Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Str;
 
 /**
- * @method MorphMany<Log, $this> logs()
  * @method string journalDetail()
  *
  * @phpstan-consistent-constructor
