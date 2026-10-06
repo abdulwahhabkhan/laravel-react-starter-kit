@@ -1,7 +1,12 @@
 <?php
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\User;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Tests\TestCase;
+
+use function Pest\Laravel\freezeSecond;
+use function Pest\Laravel\withoutVite;
+use function Symfony\Component\Translation\t;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +20,12 @@ use Tests\TestCase;
 */
 
 pest()->extend(TestCase::class)
-    ->use(RefreshDatabase::class)
+    ->use(LazilyRefreshDatabase::class)
+    ->beforeEach(function () {
+        Http::preventStrayRequests();
+        freezeSecond();
+        withoutVite();
+    })
     ->in('Feature');
 
 /*
@@ -44,7 +54,15 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function getUser(bool $actAs = true): User
 {
-    // ..
+    /** @var User $user */
+    $user = once(function () {
+        return User::factory()->create();
+    });
+    if ($actAs) {
+        test()->actingAs($user);
+    }
+
+    return $user;
 }
