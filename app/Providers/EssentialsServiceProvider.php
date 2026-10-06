@@ -27,18 +27,21 @@ class EssentialsServiceProvider extends ServiceProvider
         $this->configureModel();
         $this->configureUrls();
     }
+
     private function configureCommands(): void
     {
         DB::prohibitDestructiveCommands(
             $this->app->isProduction(),
         );
     }
+
     private function configureUrls(): void
     {
         if (app()->isProduction()) {
             URL::forceScheme('https');
         }
     }
+
     private function configureDates(): void
     {
         Carbon::macro('displayDate', fn (): string => $this->format('d-M-Y'));

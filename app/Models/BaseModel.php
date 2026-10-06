@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Action\Log;
-use App\Models\Traits\CustomDateSerializer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Query\Expression;
@@ -22,6 +21,7 @@ class BaseModel extends Model
         if (Str::contains($column, '.')) {
             return new Expression($column);
         }
+
         if ($raw) {
             return new Expression(self::tName().'.'.$column);
         }

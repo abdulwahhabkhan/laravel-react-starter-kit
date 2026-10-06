@@ -2,11 +2,11 @@
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 use function Pest\Laravel\freezeSecond;
 use function Pest\Laravel\withoutVite;
-use function Symfony\Component\Translation\t;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +21,7 @@ use function Symfony\Component\Translation\t;
 
 pest()->extend(TestCase::class)
     ->use(LazilyRefreshDatabase::class)
-    ->beforeEach(function () {
+    ->beforeEach(function (): void {
         Http::preventStrayRequests();
         freezeSecond();
         withoutVite();
@@ -39,9 +39,7 @@ pest()->extend(TestCase::class)
 |
 */
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
-});
+expect()->extend('toBeOne', fn () => $this->toBe(1));
 
 /*
 |--------------------------------------------------------------------------
@@ -57,9 +55,7 @@ expect()->extend('toBeOne', function () {
 function getUser(bool $actAs = true): User
 {
     /** @var User $user */
-    $user = once(function () {
-        return User::factory()->create();
-    });
+    $user = once(fn () => User::factory()->create());
     if ($actAs) {
         test()->actingAs($user);
     }
