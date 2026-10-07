@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
+use function Pest\Laravel\actingAs;
 use function Pest\Laravel\freezeSecond;
 use function Pest\Laravel\withoutVite;
 
@@ -57,7 +58,7 @@ function getUser(bool $actAs = true): User
     /** @var User $user */
     $user = once(fn () => User::factory()->create());
     if ($actAs) {
-        test()->actingAs($user);
+        actingAs($user);
     }
 
     return $user;

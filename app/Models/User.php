@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Role;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -20,6 +21,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property int $id
  * @property string $name
  * @property string $email
+ * @property Role $role
  * @property Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $two_factor_secret
@@ -41,6 +43,14 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     use TwoFactorAuthenticatable;
 
     /**
+     * Determine if the user has the given role.
+     */
+    public function hasRole(Role $role): bool
+    {
+        return $this->role === $role;
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -49,6 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     {
         return [
             'email_verified_at' => 'datetime',
+            'role' => Role::class,
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
         ];

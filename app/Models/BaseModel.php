@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Expression;
-use Illuminate\Support\Str;
 
 /**
  * @method string journalDetail()
@@ -13,17 +11,14 @@ use Illuminate\Support\Str;
  */
 class BaseModel extends Model
 {
-    final public static function qCol(string $column, bool $raw = true): string|Expression
+    /**
+     * Qualify the given column with the model's table name.
+     *
+     * The query builder wraps the returned identifier, so it is safe in where, select, and order clauses.
+     */
+    final public static function qCol(string $column): string
     {
-        if (Str::contains($column, '.')) {
-            return new Expression($column);
-        }
-
-        if ($raw) {
-            return new Expression(self::tName().'.'.$column);
-        }
-
-        return self::tName().'.'.$column;
+        return (new static)->qualifyColumn($column);
     }
 
     final public static function tName(): string

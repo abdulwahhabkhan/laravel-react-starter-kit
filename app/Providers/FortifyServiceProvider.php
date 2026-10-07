@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Actions\Fortify\ResetUserPassword;
+use App\Enums\Role;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -49,6 +50,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::loginView(fn (Request $request) => Inertia::render('auth/login', [
             'canResetPassword' => Features::enabled(Features::resetPasswords()),
             'status' => $request->session()->get('status'),
+            'loginLinks' => $this->loginLinks(),
         ]));
 
         Fortify::resetPasswordView(fn (Request $request) => Inertia::render('auth/reset-password', [
@@ -68,6 +70,25 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::twoFactorChallengeView(fn () => Inertia::render('auth/two-factor-challenge'));
 
         Fortify::confirmPasswordView(fn () => Inertia::render('auth/confirm-password'));
+    }
+
+    /**
+     * Get the one-click demo login links, available only in allowed environments.
+     *
+     * @return list<array{role: string, label: string, email: string, attributes: string}>
+     */
+    private function loginLinks(): array
+    {
+        if (! $this->app->environment(config('login-link.allowed_environments'))) {
+            return [];
+        }
+
+        return array_map(fn (Role $role): array => [
+            'role' => $role->value,
+            'label' => $role->label(),
+            'email' => $role->demoEmail(),
+            'attributes' => (string) json_encode(['role' => $role->value]),
+        ], Role::cases());
     }
 
     /**

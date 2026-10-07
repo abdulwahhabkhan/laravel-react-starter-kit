@@ -1,5 +1,7 @@
 import { Form, Head } from '@inertiajs/react';
 import InputError from '@/components/input-error';
+import LoginLinkButtons from '@/components/login-link-buttons';
+import type { LoginLink } from '@/components/login-link-buttons';
 import PasswordInput from '@/components/password-input';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
@@ -14,9 +16,10 @@ import PasskeyVerify from '@/components/passkey-verify';
 type Props = {
     status?: string;
     canResetPassword: boolean;
+    loginLinks: LoginLink[];
 };
 
-export default function Login({ status, canResetPassword }: Props) {
+export default function Login({ status, canResetPassword, loginLinks }: Props) {
     return (
         <>
             <Head title="Log in" />
@@ -93,6 +96,8 @@ export default function Login({ status, canResetPassword }: Props) {
                     </>
                 )}
             </Form>
+
+            <LoginLinkButtons links={loginLinks} />
 
             {status && (
                 <div className="mb-4 text-center text-sm font-medium text-green-600">

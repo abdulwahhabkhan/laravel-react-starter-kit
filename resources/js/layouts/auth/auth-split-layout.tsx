@@ -21,6 +21,17 @@ export default function AuthSplitLayout({
                     <AppLogoIcon className="mr-2 size-8 fill-current text-white" />
                     {name}
                 </Link>
+                <div className="relative z-20 mt-auto">
+                    <blockquote className="space-y-2">
+                        <p className="text-lg">
+                            &ldquo;Simplicity is the ultimate
+                            sophistication.&rdquo;
+                        </p>
+                        <footer className="text-sm text-neutral-300">
+                            Leonardo da Vinci
+                        </footer>
+                    </blockquote>
+                </div>
             </div>
             <div className="w-full lg:p-8">
                 <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">

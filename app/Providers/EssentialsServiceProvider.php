@@ -71,7 +71,7 @@ class EssentialsServiceProvider extends ServiceProvider
     private function queryMacros(): void
     {
         Builder::macro('filterWhere', function (Expression|string $column, ?string $search) {
-            if ($search === null or $search === '') {
+            if ($search === null || $search === '') {
                 return $this;
             }
 
@@ -79,28 +79,31 @@ class EssentialsServiceProvider extends ServiceProvider
 
         });
 
-        Builder::macro('filterStartWith', function (Expression|string $column, ?string $search) {
+        Builder::macro('filterStartWith', function (Expression|string $column, ?string $search): static {
             if ($search === null || $search === '') {
                 return $this;
             }
+
             $this->whereLike($column, "$search%");
 
             return $this;
         });
 
-        Builder::macro('filterContain', function (Expression|string $column, ?string $search) {
+        Builder::macro('filterContain', function (Expression|string $column, ?string $search): static {
             if ($search === null) {
                 return $this;
             }
+
             $this->whereLike($column, "%$search%");
 
             return $this;
         });
 
-        Builder::macro('filterDate', function (Expression|string $column, ?string $search) {
+        Builder::macro('filterDate', function (Expression|string $column, ?string $search): static {
             if ($search === null) {
                 return $this;
             }
+
             $this->whereDate($column, $search);
 
             return $this;
