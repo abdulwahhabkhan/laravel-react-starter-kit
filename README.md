@@ -60,7 +60,7 @@ composer run dev      # start the development servers
 ## Demo users
 
 | Role  | Email               | Password   |
-|-------|---------------------|------------|
+| ----- | ------------------- | ---------- |
 | Admin | `admin@example.com` | `password` |
 | User  | `user@example.com`  | `password` |
 
@@ -68,15 +68,15 @@ The one-click login buttons only appear in the `local` environment. Seeded users
 
 ## Quality checks
 
-| Command                  | What it runs                                        |
-|--------------------------|-----------------------------------------------------|
-| `composer lint`          | Rector and Pint (fixes code)                        |
-| `composer lint:check`    | Pint and Rector in check mode                       |
-| `composer types:check`   | PHPStan (Larastan, level 7)                         |
-| `composer test`          | Lint check, PHPStan, type coverage, and Pest suite  |
-| `composer ci:check`      | Frontend check, TypeScript check, and `composer test` |
-| `bun run check`          | Vite+ format and lint for the frontend              |
-| `bun run types:check`    | TypeScript type check                               |
+| Command                | What it runs                                          |
+| ---------------------- | ----------------------------------------------------- |
+| `composer lint`        | Rector and Pint (fixes code)                          |
+| `composer lint:check`  | Pint and Rector in check mode                         |
+| `composer types:check` | PHPStan (Larastan, level 7)                           |
+| `composer test`        | Lint check, PHPStan, type coverage, and Pest suite    |
+| `composer ci:check`    | Frontend check, TypeScript check, and `composer test` |
+| `bun run check`        | Vite+ format and lint for the frontend                |
+| `bun run types:check`  | TypeScript type check                                 |
 
 ## Dependency auditing
 

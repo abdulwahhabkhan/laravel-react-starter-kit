@@ -70,7 +70,7 @@ class EssentialsServiceProvider extends ServiceProvider
 
     private function queryMacros(): void
     {
-        Builder::macro('filterWhere', function (Expression|string $column, ?string $search) {
+        Builder::macro('filterWhere', function (Expression|string $column, ?string $search): Builder {
             if ($search === null || $search === '') {
                 return $this;
             }
@@ -79,7 +79,7 @@ class EssentialsServiceProvider extends ServiceProvider
 
         });
 
-        Builder::macro('filterStartWith', function (Expression|string $column, ?string $search): static {
+        Builder::macro('filterStartWith', function (Expression|string $column, ?string $search): Builder {
             if ($search === null || $search === '') {
                 return $this;
             }
@@ -89,7 +89,7 @@ class EssentialsServiceProvider extends ServiceProvider
             return $this;
         });
 
-        Builder::macro('filterContain', function (Expression|string $column, ?string $search): static {
+        Builder::macro('filterContain', function (Expression|string $column, ?string $search): Builder {
             if ($search === null) {
                 return $this;
             }
@@ -99,7 +99,7 @@ class EssentialsServiceProvider extends ServiceProvider
             return $this;
         });
 
-        Builder::macro('filterDate', function (Expression|string $column, ?string $search): static {
+        Builder::macro('filterDate', function (Expression|string $column, ?string $search): Builder {
             if ($search === null) {
                 return $this;
             }
