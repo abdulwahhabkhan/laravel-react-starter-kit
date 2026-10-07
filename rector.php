@@ -8,6 +8,7 @@ use Rector\CodingStyle\Rector\ClassMethod\MakeInheritedMethodVisibilitySameAsPar
 use Rector\Config\RectorConfig;
 use Rector\Php85\Rector\Property\AddOverrideAttributeToOverriddenPropertiesRector;
 use RectorLaravel\Rector\Class_\AddHasFactoryToModelsRector;
+use RectorLaravel\Rector\Class_\ModelCastsPropertyToCastsMethodRector;
 use RectorLaravel\Rector\StaticCall\CarbonToDateFacadeRector;
 use RectorLaravel\Set\LaravelSetList;
 
@@ -45,6 +46,7 @@ return RectorConfig::configure()
     ->withSkip([
         MakeInheritedMethodVisibilitySameAsParentRector::class,
         AddOverrideAttributeToOverriddenPropertiesRector::class,
+        ModelCastsPropertyToCastsMethodRector::class,
         AddHasFactoryToModelsRector::class => [
             __DIR__.'/app/Models/BaseModel.php',
         ],
