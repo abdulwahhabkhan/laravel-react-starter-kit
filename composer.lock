@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a1610fd0bdc339b1d766afbccb0a606",
+    "content-hash": "f7244a00216dbcb81625ee638a2307bd",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1402,16 +1402,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v13.35.0",
+            "version": "v13.34.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "a413a9da94884e5e9d58f4e6612884f712827804"
+                "reference": "c829b4982d29344cbcf1d7ad78eb5d2bb8ae66c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/a413a9da94884e5e9d58f4e6612884f712827804",
-                "reference": "a413a9da94884e5e9d58f4e6612884f712827804",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c829b4982d29344cbcf1d7ad78eb5d2bb8ae66c4",
+                "reference": "c829b4982d29344cbcf1d7ad78eb5d2bb8ae66c4",
                 "shasum": ""
             },
             "require": {
@@ -1629,7 +1629,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2026-10-06T13:52:37+00:00"
+            "time": "2026-09-29T12:46:21+00:00"
         },
         {
             "name": "laravel/passkeys",
@@ -9446,16 +9446,16 @@
         },
         {
             "name": "entropy/entropy",
-            "version": "0.4.28",
+            "version": "0.4.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TomasVotruba/entropy.git",
-                "reference": "d6f2c8a591133434692e9478a5bba4aebfe820f1"
+                "reference": "57f762f4dc53b27923967acf77b97afdc34def09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TomasVotruba/entropy/zipball/d6f2c8a591133434692e9478a5bba4aebfe820f1",
-                "reference": "d6f2c8a591133434692e9478a5bba4aebfe820f1",
+                "url": "https://api.github.com/repos/TomasVotruba/entropy/zipball/57f762f4dc53b27923967acf77b97afdc34def09",
+                "reference": "57f762f4dc53b27923967acf77b97afdc34def09",
                 "shasum": ""
             },
             "require": {
@@ -9472,10 +9472,10 @@
                 "rector/rector": "^2.4",
                 "rector/swiss-knife": "^2.4",
                 "shipmonk/composer-dependency-analyser": "^1.8",
-                "shipmonk/dead-code-detector": "^1.4",
                 "symplify/easy-coding-standard": "^13.1",
                 "symplify/phpstan-rules": "^14.10",
                 "tomasvotruba/type-coverage": "^2.2",
+                "tomasvotruba/unused-public": "^2.2",
                 "tracy/tracy": "^2.12"
             },
             "type": "library",
@@ -9491,9 +9491,9 @@
             "description": "Entropy framework",
             "support": {
                 "issues": "https://github.com/TomasVotruba/entropy/issues",
-                "source": "https://github.com/TomasVotruba/entropy/tree/0.4.28"
+                "source": "https://github.com/TomasVotruba/entropy/tree/0.4.27"
             },
-            "time": "2026-10-07T08:43:40+00:00"
+            "time": "2026-10-05T22:23:15+00:00"
         },
         {
             "name": "fakerphp/faker",
@@ -11690,21 +11690,22 @@
         },
         {
             "name": "pestphp/pest-plugin-rector",
-            "version": "v5.0.5",
+            "version": "v5.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest-plugin-rector.git",
-                "reference": "59dc6e354573c0622675fa08599ea9274ccf19cd"
+                "reference": "d881f0ab8d4392f4a127c2f0aa8230529f856fc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest-plugin-rector/zipball/59dc6e354573c0622675fa08599ea9274ccf19cd",
-                "reference": "59dc6e354573c0622675fa08599ea9274ccf19cd",
+                "url": "https://api.github.com/repos/pestphp/pest-plugin-rector/zipball/d881f0ab8d4392f4a127c2f0aa8230529f856fc5",
+                "reference": "d881f0ab8d4392f4a127c2f0aa8230529f856fc5",
                 "shasum": ""
             },
             "require": {
                 "php": "^8.4",
-                "rector/rector": "^2.6.1"
+                "rector/rector": "^2.6.1",
+                "symplify/rule-doc-generator-contracts": "^11.2"
             },
             "conflict": {
                 "pestphp/pest": "<5.0.0"
@@ -11714,7 +11715,8 @@
                 "laravel/pint": "^1.30.3",
                 "pestphp/pest": "^5.0.3",
                 "pestphp/pest-plugin-phpstan": "^5.0",
-                "phpstan/phpstan": "^2.2.7"
+                "phpstan/phpstan": "^2.2.7",
+                "symplify/rule-doc-generator": "^12.2.5"
             },
             "type": "library",
             "autoload": {
@@ -11748,7 +11750,7 @@
                 "unit"
             ],
             "support": {
-                "source": "https://github.com/pestphp/pest-plugin-rector/tree/v5.0.5"
+                "source": "https://github.com/pestphp/pest-plugin-rector/tree/v5.0.4"
             },
             "funding": [
                 {
@@ -11768,7 +11770,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2026-10-06T14:52:38+00:00"
+            "time": "2026-08-21T10:26:03+00:00"
         },
         {
             "name": "pestphp/pest-plugin-type-coverage",
