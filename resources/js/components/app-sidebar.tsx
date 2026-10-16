@@ -60,6 +60,7 @@ function firstLink(entries: NavEntry[]): NavItem | undefined {
     return entry && isNavParentItem(entry) ? entry.items[0] : entry;
 }
 
+/** Round toggle sitting on the sidebar's right edge, level with the logo. */
 function SidebarCollapseButton() {
     const { state, toggleSidebar } = useSidebar();
     const isCollapsed = state === 'collapsed';
@@ -72,15 +73,15 @@ function SidebarCollapseButton() {
             title={
                 isCollapsed ? 'Expand sidebar (⌘B)' : 'Collapse sidebar (⌘B)'
             }
-            className="ml-auto hidden size-8 shrink-0 items-center justify-center rounded-lg text-sidebar-foreground transition-colors outline-none group-data-[collapsible=icon]:ml-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 focus-visible:ring-sidebar-ring md:flex"
+            className="absolute top-1/2 -right-[13px] z-30 hidden size-[26px] -translate-y-1/2 place-items-center rounded-full border border-input bg-white text-sidebar-primary shadow-[0_2px_6px_rgb(7_48_93/0.2)] transition-[transform,box-shadow] outline-none hover:scale-110 hover:shadow-[0_3px_10px_rgb(7_48_93/0.28)] focus-visible:ring-2 focus-visible:ring-sidebar-highlight md:grid dark:border-sidebar-border dark:bg-sidebar dark:shadow-none"
         >
             <Icon
                 icon={
                     isCollapsed
-                        ? 'solar:double-alt-arrow-right-bold-duotone'
-                        : 'solar:double-alt-arrow-left-bold-duotone'
+                        ? 'solar:alt-arrow-right-linear'
+                        : 'solar:alt-arrow-left-linear'
                 }
-                className="size-[18px]"
+                className="size-3.5"
             />
         </button>
     );
@@ -118,7 +119,7 @@ export function AppSidebar() {
             variant="sidebar"
             className="md:animate-sidebar-in"
         >
-            <SidebarHeader className="flex-row items-center gap-2 border-b border-sidebar-border px-4 py-4 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0">
+            <SidebarHeader className="relative flex-row items-center gap-2 border-b border-sidebar-border px-4 py-4 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0">
                 <Link
                     href={dashboard()}
                     prefetch
@@ -136,7 +137,10 @@ export function AppSidebar() {
                     onSubmit={visitFirstMatch}
                 />
                 {filteredMainItems.length > 0 && (
-                    <NavMain items={filteredMainItems} />
+                    <NavMain
+                        items={filteredMainItems}
+                        showCollapsedDivider={false}
+                    />
                 )}
                 {filteredModuleItems.length > 0 && (
                     <NavMain

@@ -20,7 +20,7 @@ export function AppShell({ children, variant = 'sidebar' }: Props) {
     return (
         <SidebarProvider
             defaultOpen={isOpen}
-            style={{ '--sidebar-width-icon': '4rem' } as CSSProperties}
+            style={{ '--sidebar-width-icon': '4.75rem' } as CSSProperties}
         >
             {children}
         </SidebarProvider>

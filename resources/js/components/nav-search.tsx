@@ -7,6 +7,7 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from '@/components/ui/sidebar';
+import { NavIconTile } from '@/components/nav-main';
 
 /**
  * Filters the sidebar menu. Focus with ⌘K / Ctrl+K; when the sidebar is
@@ -56,9 +57,9 @@ export function NavSearch({
                     <SidebarMenuButton
                         tooltip={{ children: 'Search menu (⌘K)' }}
                         onClick={focusSearch}
-                        className="justify-center text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground [&>svg]:size-[18px]"
+                        className="group/nav size-11! justify-center p-0! hover:bg-transparent"
                     >
-                        <Icon icon="solar:magnifer-linear" />
+                        <NavIconTile icon="solar:magnifer-linear" />
                         <span className="sr-only">Search menu</span>
                     </SidebarMenuButton>
                 </SidebarMenuItem>

@@ -66,6 +66,11 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-highlight: var(--sidebar-highlight);
+    --color-sidebar-tile: var(--sidebar-tile);
+    --color-sidebar-tile-active: var(--sidebar-tile-active);
+    --color-sidebar-tile-active-foreground: var(
+        --sidebar-tile-active-foreground
+    );
 
     /* Page entrance motion, matching the AFI shell. Fill `backwards` (never
        `forwards`) so finished elements don't stay stacking contexts that trap
@@ -134,6 +139,9 @@
     --sidebar-border: #d8d3cc;
     --sidebar-ring: #07305d;
     --sidebar-highlight: #eaa159;
+    --sidebar-tile: #ece7e0;
+    --sidebar-tile-active: #07305d;
+    --sidebar-tile-active-foreground: #eaa159;
 }
 
 .dark {
@@ -173,6 +181,9 @@
     --sidebar-border: rgb(255 255 255 / 0.1);
     --sidebar-ring: #eaa159;
     --sidebar-highlight: #eaa159;
+    --sidebar-tile: rgb(255 255 255 / 0.06);
+    --sidebar-tile-active: #eaa159;
+    --sidebar-tile-active-foreground: #141a18;
 }
 
 @layer base {
