@@ -17,7 +17,7 @@ export default function LoginLinkButtons({ links }: { links: LoginLink[] }) {
     }
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="mt-6 flex flex-col gap-4">
             <div className="relative flex items-center">
                 <div className="flex-grow border-t" />
                 <span className="mx-3 text-xs text-muted-foreground uppercase">
