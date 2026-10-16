@@ -1,5 +1,6 @@
+import { Icon } from '@iconify/react';
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
+import { Menu, Search } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import AppLogoIcon from '@/components/app-logo-icon';
 import { Breadcrumbs } from '@/components/breadcrumbs';
@@ -43,13 +44,11 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
-        icon: LayoutGrid,
+        icon: 'solar:widget-5-bold-duotone',
     },
 ];
 
-const rightNavItems: NavItem[] = [
-
-];
+const rightNavItems: NavItem[] = [];
 
 const activeItemStyles =
     'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
@@ -62,7 +61,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
 
     return (
         <>
-            <div className="border-b border-sidebar-border/80">
+            <div className="border-b border-border">
                 <div className="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
                     {/* Mobile Menu */}
                     <div className="lg:hidden">
@@ -78,7 +77,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                             </SheetTrigger>
                             <SheetContent
                                 side="left"
-                                className="flex h-full w-64 flex-col items-stretch justify-between bg-sidebar"
+                                className="flex h-full w-64 flex-col items-stretch justify-between bg-background"
                             >
                                 <SheetTitle className="sr-only">
                                     Navigation menu
@@ -96,7 +95,10 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                                     className="flex items-center space-x-2 font-medium"
                                                 >
                                                     {item.icon && (
-                                                        <item.icon className="h-5 w-5" />
+                                                        <Icon
+                                                            icon={item.icon}
+                                                            className="h-5 w-5"
+                                                        />
                                                     )}
                                                     <span>{item.title}</span>
                                                 </Link>
@@ -113,7 +115,10 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                                     className="flex items-center space-x-2 font-medium"
                                                 >
                                                     {item.icon && (
-                                                        <item.icon className="h-5 w-5" />
+                                                        <Icon
+                                                            icon={item.icon}
+                                                            className="h-5 w-5"
+                                                        />
                                                     )}
                                                     <span>{item.title}</span>
                                                 </a>
@@ -154,7 +159,10 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                             )}
                                         >
                                             {item.icon && (
-                                                <item.icon className="mr-2 h-4 w-4" />
+                                                <Icon
+                                                    icon={item.icon}
+                                                    className="mr-2 h-4 w-4"
+                                                />
                                             )}
                                             {item.title}
                                         </Link>
@@ -190,7 +198,10 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                                     {item.title}
                                                 </span>
                                                 {item.icon && (
-                                                    <item.icon className="size-5 opacity-80 group-hover:opacity-100" />
+                                                    <Icon
+                                                        icon={item.icon}
+                                                        className="size-5 opacity-80 group-hover:opacity-100"
+                                                    />
                                                 )}
                                             </a>
                                         </TooltipTrigger>
@@ -228,7 +239,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                 </div>
             </div>
             {breadcrumbs.length > 1 && (
-                <div className="flex w-full border-b border-sidebar-border/70">
+                <div className="flex w-full border-b border-border">
                     <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl">
                         <Breadcrumbs breadcrumbs={breadcrumbs} />
                     </div>

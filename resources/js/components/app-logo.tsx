@@ -7,12 +7,10 @@ export default function AppLogo() {
 
     return (
         <>
-            <AppLogoIcon className="size-8 shrink-0 rounded-md" />
-            <div className="ml-1 grid flex-1 text-left text-sm">
-                <span className="mb-0.5 truncate leading-tight font-semibold">
-                    {name}
-                </span>
-            </div>
+            <AppLogoIcon className="size-8 shrink-0" />
+            <span className="truncate text-[15px] leading-tight font-semibold tracking-tight group-data-[collapsible=icon]:hidden">
+                {name}
+            </span>
         </>
     );
 }
