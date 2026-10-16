@@ -144,7 +144,8 @@ function NavParent({
     item: NavParentItem;
     forceOpen: boolean;
 }) {
-    const { isCurrentUrl } = useCurrentUrl();
+    // Sub-pages such as /catalog/products/create keep their menu entry active.
+    const { isCurrentOrParentUrl: isCurrentUrl } = useCurrentUrl();
     const { state, isMobile } = useSidebar();
     const hasActiveChild = item.items.some((child) => isCurrentUrl(child.href));
     const [isOpen, setIsOpen] = useState(hasActiveChild);

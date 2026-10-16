@@ -14,7 +14,7 @@ class ModulePageController extends Controller
      */
     public const array PAGES = [
         'sales' => ['customers', 'orders', 'quotations', 'invoices', 'returns'],
-        'catalog' => ['products', 'categories', 'brands', 'price-lists'],
+        'catalog' => ['categories', 'brands', 'price-lists'],
         'inventory' => ['stock-levels', 'warehouses', 'transfers', 'adjustments'],
         'purchasing' => ['suppliers', 'purchase-orders', 'bills'],
         'reports' => ['sales-summary', 'stock-valuation', 'profit-and-loss'],

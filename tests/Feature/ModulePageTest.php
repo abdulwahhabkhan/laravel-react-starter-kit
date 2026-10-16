@@ -11,12 +11,12 @@ test('guests are redirected to the login page', function (): void {
 test('authenticated users can visit a module page', function (): void {
     $this->actingAs(User::factory()->create());
 
-    $this->get(route('modules.show', ['catalog', 'products']))
+    $this->get(route('modules.show', ['catalog', 'categories']))
         ->assertOk()
         ->assertInertia(fn (Assert $page) => $page
             ->component('modules/show')
             ->where('module', 'catalog')
-            ->where('page', 'products'));
+            ->where('page', 'categories'));
 });
 
 test('module pages with a dedicated component render it', function (): void {

@@ -17,9 +17,10 @@ export default function AppSidebarLayout({
             <AppContent variant="sidebar" className="min-w-0 overflow-x-clip">
                 <AppSidebarHeader breadcrumbs={breadcrumbs} />
 
-                {/* Keyed by URL so the entrance animation replays on every visit. */}
+                {/* Keyed by path so the entrance animation replays on every page visit,
+                    but not when only the query string changes (search, filters, pagination). */}
                 <div
-                    key={url}
+                    key={url.split('?')[0]}
                     id="content"
                     className="flex flex-1 animate-fade-up flex-col px-5 pt-5 pb-5 [animation-delay:100ms] md:px-[30px] md:pt-7"
                 >
