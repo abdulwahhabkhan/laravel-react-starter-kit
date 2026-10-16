@@ -2,7 +2,7 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
-test('example', function () {
+test('example', function ():void {
     // Arrange
 
     // Action

@@ -5,7 +5,7 @@ use App\Enums\UnitOfMeasure;
 use App\Models\Account;
 use App\Models\Product;
 
-test('product casts unit of measure to enum and money to two decimals', function () {
+test('product casts unit of measure to enum and money to two decimals', function (): void {
     $product = Product::factory()->create(['cost' => 10, 'price' => 15.5, 'uom' => UnitOfMeasure::Box]);
 
     $product->refresh();
@@ -15,8 +15,8 @@ test('product casts unit of measure to enum and money to two decimals', function
         ->and($product->price)->toBe('15.50');
 });
 
-test('account defaults to sales type', function () {
-    $account = Account::create(['name' => 'Acme Ltd']);
+test('account defaults to sales type', function (): void {
+    $account = Account::query()->create(['name' => 'Acme Ltd']);
 
     expect($account->refresh()->type)->toBe(AccountType::Sales);
 });

@@ -25,7 +25,7 @@ class AccountFactory extends Factory
             'email' => fake()->companyEmail(),
             'address_line_1' => fake()->streetAddress(),
             'city' => fake()->city(),
-            'region' => fake()->state(),
+            'region' => fake()->randomElement(['Region1', 'Region2', 'Region3']),
         ];
     }
 

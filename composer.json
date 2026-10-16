@@ -69,7 +69,9 @@
             "pint --parallel"
         ],
         "test:type-coverage": "pest --type-coverage --min=100",
-        "test:unit": "XDEBUG_MODE=\"coverage\" pest --parallel --coverage --exactly=100.0",
+        "test:unit": "pest --parallel",
+        "test:coverage": "XDEBUG_MODE=\"coverage\" pest --exclude-testsuite=Arch --parallel --coverage --exactly=100.0",
+        "test:arch": "pest --testsuite=Arch",
         "lint:check": [
             "pint --parallel --test",
             "rector --dry-run"
@@ -79,6 +81,14 @@
             "bun run check",
             "bun run types:check",
             "@test"
+        ],
+        "pr:check": [
+            "Composer\\Config::disableProcessTimeout",
+            "@lint",
+            "@types:check",
+            "@test:type-coverage",
+            "@test:coverage",
+            "@test:arch"
         ],
         "types:check": [
             "phpstan analyse"

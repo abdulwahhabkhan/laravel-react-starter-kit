@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Enums\UnitOfMeasure;
@@ -21,7 +23,7 @@ class ProductFactory extends Factory
         $cost = fake()->randomFloat(2, 1, 500);
 
         return [
-            'name' => ucwords(fake()->words(3, true)),
+            'name' => fake()->words(3, true),
             'sku' => fake()->unique()->bothify('SKU-####-????'),
             'upc' => fake()->unique()->ean13(),
             'cost' => $cost,

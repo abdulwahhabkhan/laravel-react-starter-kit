@@ -26,6 +26,7 @@ pest()->extend(TestCase::class)
         Http::preventStrayRequests();
         freezeSecond();
         withoutVite();
+        config(['inertia.ssr.enabled' => false]);
     })
     ->in('Feature');
 
