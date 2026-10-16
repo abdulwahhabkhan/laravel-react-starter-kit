@@ -1,4 +1,4 @@
-import { Icon } from '@iconify/react';
+import { Icon } from '@iconify/react/offline';
 import { useCallback, useEffect, useRef } from 'react';
 import {
     SidebarGroup,
@@ -58,7 +58,7 @@ export function NavSearch({
                         onClick={focusSearch}
                         className="justify-center text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground [&>svg]:size-[18px]"
                     >
-                        <Icon icon="solar:magnifer-bold-duotone" />
+                        <Icon icon="solar:magnifer-linear" />
                         <span className="sr-only">Search menu</span>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -66,7 +66,7 @@ export function NavSearch({
 
             <label className="relative flex items-center group-data-[collapsible=icon]:hidden">
                 <Icon
-                    icon="solar:magnifer-bold-duotone"
+                    icon="solar:magnifer-linear"
                     className="pointer-events-none absolute left-2.5 size-4 text-sidebar-foreground"
                 />
                 <input
@@ -87,9 +87,9 @@ export function NavSearch({
                             event.currentTarget.blur();
                         }
                     }}
-                    className="h-9 w-full rounded-lg border border-sidebar-border bg-white/70 pr-11 pl-8 text-[13px] text-sidebar-accent-foreground transition-colors outline-none placeholder:text-sidebar-foreground/80 hover:border-sidebar-foreground/30 focus:border-sidebar-primary/60 focus:bg-white focus:ring-2 focus:ring-sidebar-primary/20 dark:bg-white/[0.04] dark:focus:bg-white/[0.06] [&::-webkit-search-cancel-button]:hidden"
+                    className="h-9 w-full rounded-lg border border-sidebar-border bg-[#efebe6] pr-11 pl-8 text-[13px] text-sidebar-accent-foreground transition-colors outline-none placeholder:text-sidebar-foreground/80 hover:border-sidebar-foreground/30 focus:border-sidebar-primary/60 focus:bg-[#f3f0ec] focus:ring-2 focus:ring-sidebar-primary/20 dark:bg-white/[0.04] dark:focus:bg-white/[0.06] [&::-webkit-search-cancel-button]:hidden"
                 />
-                <kbd className="pointer-events-none absolute right-2 rounded border border-sidebar-border bg-sidebar-accent px-1.5 py-px font-sans text-[10px] font-medium text-sidebar-foreground">
+                <kbd className="pointer-events-none absolute right-2 inline-flex h-5 min-w-5 items-center justify-center rounded-[5px] border border-b-2 border-sidebar-border bg-[#f1eeea] px-1 font-sans text-[11px] leading-none font-semibold text-sidebar-foreground dark:bg-white/5">
                     ⌘K
                 </kbd>
             </label>

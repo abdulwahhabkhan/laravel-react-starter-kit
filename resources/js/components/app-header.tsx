@@ -1,4 +1,4 @@
-import { Icon } from '@iconify/react';
+import { Icon } from '@iconify/react/offline';
 import { Link, usePage } from '@inertiajs/react';
 import { Menu, Search } from 'lucide-react';
 import AppLogo from '@/components/app-logo';

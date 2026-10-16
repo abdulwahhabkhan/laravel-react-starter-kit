@@ -11,6 +11,7 @@
         "types:check": "tsc --noEmit"
     },
     "dependencies": {
+        "@iconify-json/solar": "^1.2.13",
         "@iconify/react": "^6.0.2",
         "@inertiajs/react": "^3.7.1",
         "@inertiajs/vite": "^3.7.1",
