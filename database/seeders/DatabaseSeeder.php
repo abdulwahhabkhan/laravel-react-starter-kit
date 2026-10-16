@@ -27,5 +27,10 @@ class DatabaseSeeder extends Seeder
                 'role' => $role,
             ]);
         }
+
+        $this->call([
+            ProductSeeder::class,
+            AccountSeeder::class,
+        ]);
     }
 }
