@@ -33,7 +33,7 @@ export function NavUser() {
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton
                             size="lg"
-                            className="h-auto gap-2.5 rounded-[10px] bg-sidebar-primary/[0.035] p-2 text-sidebar-accent-foreground shadow-[inset_0_0_0_1px_var(--sidebar-border)] transition-colors group-data-[collapsible=icon]:size-auto! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:bg-transparent group-data-[collapsible=icon]:p-0.5! group-data-[collapsible=icon]:shadow-none hover:bg-sidebar-primary/[0.07] data-[state=open]:bg-sidebar-primary/[0.07]"
+                            className="h-auto gap-2.5 rounded-[10px] bg-sidebar-primary/[0.035] p-2 text-sidebar-accent-foreground shadow-[inset_0_0_0_1px_var(--sidebar-border)] transition-colors group-data-[collapsible=icon]:size-auto! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:overflow-visible group-data-[collapsible=icon]:bg-transparent group-data-[collapsible=icon]:p-1! group-data-[collapsible=icon]:shadow-none hover:bg-sidebar-primary/[0.07] data-[state=open]:bg-sidebar-primary/[0.07]"
                             data-test="sidebar-menu-button"
                         >
                             <Avatar className="relative size-[34px] shrink-0 overflow-hidden rounded-full shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_1px_2px_rgb(0_0_0/0.25)] group-data-[collapsible=icon]:shadow-[0_0_0_2px_var(--sidebar),0_0_0_3.5px_var(--sidebar-primary)] after:pointer-events-none after:absolute after:inset-0.5 after:rounded-full after:border after:border-black/15">

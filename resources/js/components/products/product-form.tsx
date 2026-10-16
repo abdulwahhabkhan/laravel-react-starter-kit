@@ -400,7 +400,7 @@ export function ProductForm({
                         {processing ? (
                             <Spinner />
                         ) : (
-                            <Icon icon="solar:diskette-linear" />
+                            <Icon icon="solar:clipboard-check-bold-duotone" />
                         )}
                         {product ? 'Save changes' : 'Create product'}
                     </Button>

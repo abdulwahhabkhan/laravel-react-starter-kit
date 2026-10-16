@@ -148,7 +148,7 @@ function CustomerRow({ customer }: { customer: Customer }) {
                         className="size-7 text-muted-foreground"
                         aria-label={`Edit ${customer.name}`}
                     >
-                        <Icon icon="solar:pen-linear" />
+                        <Icon icon="solar:pen-2-bold-duotone" />
                     </Button>
                 </div>
             </td>
@@ -200,7 +200,7 @@ export default function Customers() {
                             className="h-[30px] gap-1.5 px-2.5 text-xs font-semibold has-[>svg]:px-2.5"
                         >
                             <Icon
-                                icon="solar:add-circle-linear"
+                                icon="solar:add-bold-duotone"
                                 className="size-[18px]"
                             />
                             New customer

@@ -114,7 +114,7 @@ export default function ModuleShow({
                                 Filter
                             </Button>
                             <Button>
-                                <Icon icon="solar:add-circle-linear" />
+                                <Icon icon="solar:add-bold-duotone" />
                                 {page.action}
                             </Button>
                         </>

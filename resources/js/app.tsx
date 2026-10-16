@@ -1,6 +1,8 @@
 import { addCollection } from '@iconify/react/offline';
 import { createInertiaApp } from '@inertiajs/react';
 import solarIcons from 'virtual:solar-icons';
+import { ConfirmProvider } from '@/components/confirm-dialog';
+import ErrorBoundary from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { initializeTheme } from '@/hooks/use-appearance';
@@ -29,10 +31,22 @@ void createInertiaApp({
     strictMode: true,
     withApp(app) {
         return (
-            <TooltipProvider delayDuration={0}>
-                {app}
-                <Toaster />
-            </TooltipProvider>
+            <ErrorBoundary fullScreen>
+                <TooltipProvider delayDuration={0}>
+                    <ConfirmProvider>
+                        {app}
+                        <Toaster
+                            closeButton
+                            toastOptions={{
+                                classNames: {
+                                    toast: 'rounded-xl! shadow-lift! border-border! font-sans!',
+                                    title: 'text-sm! font-semibold!',
+                                },
+                            }}
+                        />
+                    </ConfirmProvider>
+                </TooltipProvider>
+            </ErrorBoundary>
         );
     },
     progress: {

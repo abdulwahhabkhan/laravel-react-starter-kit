@@ -204,7 +204,7 @@ export default function ProductsIndex({
                         >
                             <Link href={create()}>
                                 <Icon
-                                    icon="solar:add-circle-linear"
+                                    icon="solar:add-bold-duotone"
                                     className="size-[18px]"
                                 />
                                 New product
@@ -326,7 +326,7 @@ export default function ProductsIndex({
                                                             )}
                                                             aria-label={`Edit ${product.name}`}
                                                         >
-                                                            <Icon icon="solar:pen-linear" />
+                                                            <Icon icon="solar:pen-2-bold-duotone" />
                                                         </Link>
                                                     </Button>
                                                     <Button

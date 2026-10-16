@@ -21,8 +21,11 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         theme:
           "bg-theme text-theme-foreground shadow-xs hover:bg-theme/90 focus-visible:ring-theme/40",
+        white:
+          "border border-border bg-card text-foreground shadow-xs hover:bg-accent dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
       },
       size: {
+        xs: "h-7 gap-1.5 rounded-sm px-2.5 text-xs has-[>svg]:px-2",
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
         sm: "h-8 rounded-md px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",

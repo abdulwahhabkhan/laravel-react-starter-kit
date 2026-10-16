@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react/offline';
 import { Link, router } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
 import AppLogo from '@/components/app-logo';
@@ -13,7 +12,6 @@ import {
     SidebarFooter,
     SidebarHeader,
     SidebarRail,
-    useSidebar,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
 import type { NavEntry, NavItem } from '@/types';
@@ -60,33 +58,6 @@ function firstLink(entries: NavEntry[]): NavItem | undefined {
     return entry && isNavParentItem(entry) ? entry.items[0] : entry;
 }
 
-/** Round toggle sitting on the sidebar's right edge, level with the logo. */
-function SidebarCollapseButton() {
-    const { state, toggleSidebar } = useSidebar();
-    const isCollapsed = state === 'collapsed';
-
-    return (
-        <button
-            type="button"
-            onClick={toggleSidebar}
-            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            title={
-                isCollapsed ? 'Expand sidebar (⌘B)' : 'Collapse sidebar (⌘B)'
-            }
-            className="absolute top-1/2 -right-[13px] z-30 hidden size-[26px] -translate-y-1/2 place-items-center rounded-full border border-input bg-white text-sidebar-primary shadow-[0_2px_6px_rgb(7_48_93/0.2)] transition-[transform,box-shadow] outline-none hover:scale-110 hover:shadow-[0_3px_10px_rgb(7_48_93/0.28)] focus-visible:ring-2 focus-visible:ring-sidebar-highlight md:grid dark:border-sidebar-border dark:bg-sidebar dark:shadow-none"
-        >
-            <Icon
-                icon={
-                    isCollapsed
-                        ? 'solar:alt-arrow-right-linear'
-                        : 'solar:alt-arrow-left-linear'
-                }
-                className="size-3.5"
-            />
-        </button>
-    );
-}
-
 export function AppSidebar() {
     const [menuSearch, setMenuSearch] = useState('');
 
@@ -119,7 +90,7 @@ export function AppSidebar() {
             variant="sidebar"
             className="md:animate-sidebar-in"
         >
-            <SidebarHeader className="relative flex-row items-center gap-2 border-b border-sidebar-border px-4 py-4 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0">
+            <SidebarHeader className="flex-row items-center gap-2 border-b border-sidebar-border px-4 py-4 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0">
                 <Link
                     href={dashboard()}
                     prefetch
@@ -127,7 +98,6 @@ export function AppSidebar() {
                 >
                     <AppLogo />
                 </Link>
-                <SidebarCollapseButton />
             </SidebarHeader>
 
             <SidebarContent className="gap-1">
