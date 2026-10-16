@@ -270,7 +270,7 @@ export default function AuthSplitLayout({
                 </p>
             </aside>
 
-            <main className="relative flex items-center justify-center bg-muted/40 px-4 py-10 sm:px-8">
+            <main className="relative flex items-center justify-center bg-[#e8e5e0] px-4 py-10 sm:px-8 dark:bg-muted/40">
                 <div className="w-full max-w-md space-y-6">
                     <Link
                         href={home()}

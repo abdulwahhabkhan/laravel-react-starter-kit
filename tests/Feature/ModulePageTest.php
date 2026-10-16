@@ -19,6 +19,17 @@ test('authenticated users can visit a module page', function (): void {
             ->where('page', 'products'));
 });
 
+test('module pages with a dedicated component render it', function (): void {
+    $this->actingAs(User::factory()->create());
+
+    $this->get(route('modules.show', ['sales', 'customers']))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('sales/customers')
+            ->where('module', 'sales')
+            ->where('page', 'customers'));
+});
+
 test('unknown module pages return not found', function (string $module, string $page): void {
     $this->actingAs(User::factory()->create());
 

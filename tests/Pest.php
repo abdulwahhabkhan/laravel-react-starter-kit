@@ -30,6 +30,14 @@ pest()->extend(TestCase::class)
     })
     ->in('Feature');
 
+pest()->extend(TestCase::class)
+    ->use(LazilyRefreshDatabase::class)
+    ->beforeEach(function (): void {
+        Http::preventStrayRequests();
+        config(['inertia.ssr.enabled' => false]);
+    })
+    ->in('Browser');
+
 /*
 |--------------------------------------------------------------------------
 | Expectations

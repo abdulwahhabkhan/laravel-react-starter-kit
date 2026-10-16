@@ -49,7 +49,7 @@ export default function LoginLinkButtons({ links }: { links: LoginLink[] }) {
                                 <Button
                                     type="submit"
                                     variant="outline"
-                                    className="w-full"
+                                    className="w-full border-[#07305d]/30 bg-[#07305d]/10 text-[#07305d] hover:bg-[#07305d]/15 hover:text-[#07305d] dark:border-input dark:bg-input/30 dark:text-foreground dark:hover:bg-input/50 dark:hover:text-foreground"
                                     disabled={processing}
                                     data-test={`login-as-${link.role}`}
                                 >
