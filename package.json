@@ -3,12 +3,13 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vp build",
-        "build:ssr": "vp build && vp build --ssr",
-        "dev": "vp dev",
+        "build": "bun run icons && vp build",
+        "build:ssr": "bun run icons && vp build && vp build --ssr",
+        "dev": "bun run icons && vp dev",
         "check": "vp check",
         "check:fix": "vp check --fix",
-        "types:check": "tsc --noEmit"
+        "types:check": "tsc --noEmit",
+        "icons": "bun resources/scripts/solar-icons.ts"
     },
     "dependencies": {
         "@iconify-json/solar": "^1.2.13",

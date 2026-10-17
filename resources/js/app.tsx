@@ -1,6 +1,5 @@
-import { addCollection } from '@iconify/react/offline';
+import { addCollection, type IconifyJSON } from '@iconify/react/offline';
 import { createInertiaApp } from '@inertiajs/react';
-import solarIcons from 'virtual:solar-icons';
 import { ConfirmProvider } from '@/components/confirm-dialog';
 import ErrorBoundary from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/sonner';
@@ -9,8 +8,9 @@ import { initializeTheme } from '@/hooks/use-appearance';
 import AppLayout from '@/layouts/app-layout';
 import AuthLayout from '@/layouts/auth-layout';
 import SettingsLayout from '@/layouts/settings/layout';
+import solarIcons from '@/lib/solar-icons.json';
 
-addCollection(solarIcons);
+addCollection(solarIcons as IconifyJSON);
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
