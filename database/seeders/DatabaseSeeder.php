@@ -18,15 +18,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::factory()->admin()->create([
+            'name' => 'Admin User',
+            'email' => Role::Admin->demoEmail(),
+        ]);
 
-        foreach (Role::cases() as $role) {
-            User::factory()->create([
-                'name' => "{$role->label()} User",
-                'email' => $role->demoEmail(),
-                'role' => $role,
-            ]);
-        }
+        User::factory()->create([
+            'name' => 'Demo User',
+            'email' => Role::User->demoEmail(),
+        ]);
 
         $this->call([
             ProductSeeder::class,

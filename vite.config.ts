@@ -125,8 +125,11 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.tsx'],
             refresh: true,
             fonts: [
-                bunny('Open Sans', {
+                bunny('Inter', {
                     weights: [400, 500, 600],
+                }),
+                bunny('Manrope', {
+                    weights: [500, 600, 700],
                 }),
             ],
         }),

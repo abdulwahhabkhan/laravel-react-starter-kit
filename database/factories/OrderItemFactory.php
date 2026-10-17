@@ -55,4 +55,21 @@ class OrderItemFactory extends Factory
             'discount' => 0,
         ]);
     }
+
+    /**
+     * Copy the description, unit of measure and price from the product referenced by product_id.
+     */
+    public function withProductData(): static
+    {
+        return $this->afterMaking(function (OrderItem $orderItem): void {
+            $product = Product::find($orderItem->product_id);
+
+            if ($product !== null) {
+                $orderItem->description = $product->name;
+                $orderItem->uom = $product->uom;
+                $orderItem->unit_price = (string) $product->price;
+                $orderItem->discount = 0;
+            }
+        });
+    }
 }

@@ -14,6 +14,11 @@ use Illuminate\Database\Seeder;
 class OrderSeeder extends Seeder
 {
     /**
+     * The number of orders to seed.
+     */
+    protected int $orderCount = 30;
+
+    /**
      * Run the database seeds.
      */
     public function run(): void
@@ -26,17 +31,21 @@ class OrderSeeder extends Seeder
             return;
         }
 
-        foreach (range(1, 30) as $ignored) {
-            $order = Order::factory()->create([
-                'account_id' => $accounts->random()->id,
-                'user_id' => $users->isEmpty() ? null : $users->random()->id,
-            ]);
+        Order::factory($this->orderCount)
+            ->recycle($accounts)
+            ->recycle($users)
+            ->has(
+                OrderItem::factory()
+                    ->count(3)
+                    ->recycle($products)
+                    ->withProductData(),
+                'items',
+            )
+            ->create();
 
-            foreach ($products->random(min(fake()->numberBetween(1, 5), $products->count())) as $product) {
-                OrderItem::factory()->for($order)->forProduct($product)->create();
-            }
-
-            $subtotal = (float) $order->items()->sum('line_total');
+        // Calculate and update order totals from items.
+        Order::query()->with('items')->cursor()->each(function (Order $order): void {
+            $subtotal = (float) $order->items->sum('line_total');
             $taxTotal = round($subtotal * 0.17, 2);
 
             $order->update([
@@ -45,6 +54,6 @@ class OrderSeeder extends Seeder
                 'tax_total' => $taxTotal,
                 'total' => round($subtotal + $taxTotal, 2),
             ]);
-        }
+        });
     }
 }

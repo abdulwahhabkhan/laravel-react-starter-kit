@@ -23,9 +23,6 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         $orderDate = fake()->dateTimeBetween('-3 months');
-        $subtotal = fake()->randomFloat(2, 50, 5000);
-        $discountTotal = round($subtotal * fake()->randomElement([0, 0, 0.05, 0.1]), 2);
-        $taxTotal = round(($subtotal - $discountTotal) * 0.17, 2);
 
         return [
             'order_number' => fake()->unique()->numerify('SO-######'),
@@ -34,10 +31,10 @@ class OrderFactory extends Factory
             'status' => fake()->randomElement(OrderStatus::cases()),
             'order_date' => $orderDate,
             'delivery_date' => fake()->optional()->dateTimeBetween($orderDate, '+1 month'),
-            'subtotal' => $subtotal,
-            'discount_total' => $discountTotal,
-            'tax_total' => $taxTotal,
-            'total' => round($subtotal - $discountTotal + $taxTotal, 2),
+            'subtotal' => 0,
+            'discount_total' => 0,
+            'tax_total' => 0,
+            'total' => 0,
             'notes' => fake()->optional()->sentence(),
         ];
     }
