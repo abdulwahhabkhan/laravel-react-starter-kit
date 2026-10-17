@@ -184,6 +184,7 @@
     --sidebar-border: #d8d3cc;
     --sidebar-ring: #07305d;
     --sidebar-highlight: #eaa159;
+    --brand-rule-mid: rgb(7 48 93 / 0.7);
     --sidebar-tile: #ece7e0;
     --sidebar-tile-active: #07305d;
     --sidebar-tile-active-foreground: #eaa159;
@@ -236,6 +237,7 @@
     --sidebar-border: rgb(255 255 255 / 0.1);
     --sidebar-ring: #eaa159;
     --sidebar-highlight: #eaa159;
+    --brand-rule-mid: rgb(255 255 255 / 0.15);
     --sidebar-tile: rgb(255 255 255 / 0.06);
     --sidebar-tile-active: #eaa159;
     --sidebar-tile-active-foreground: #141a18;
@@ -281,6 +283,25 @@
         animation: var(--animate-row-in);
         animation-delay: calc(200ms + min(sibling-index() - 1, 30) * 14ms);
     }
+}
+
+/* Logo-coloured hairline (gold → navy → gold); -x runs across, -y runs down. */
+@utility brand-rule-x {
+    background-image: linear-gradient(
+        to right,
+        var(--sidebar-highlight),
+        var(--brand-rule-mid),
+        color-mix(in srgb, var(--sidebar-highlight) 70%, transparent)
+    );
+}
+
+@utility brand-rule-y {
+    background-image: linear-gradient(
+        to bottom,
+        var(--sidebar-highlight),
+        var(--brand-rule-mid),
+        color-mix(in srgb, var(--sidebar-highlight) 70%, transparent)
+    );
 }
 
 /* Woven cloth texture for brand tiles; tune density with --weave-gap. */

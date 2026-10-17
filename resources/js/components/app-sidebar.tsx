@@ -88,7 +88,7 @@ export function AppSidebar() {
         <Sidebar
             collapsible="icon"
             variant="sidebar"
-            className="group-data-[side=left]:border-r-0 after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:w-px after:bg-linear-to-b after:from-sidebar-highlight after:via-sidebar-primary/70 after:to-sidebar-highlight/70 after:content-[''] md:animate-sidebar-in dark:after:via-white/15"
+            className="group-data-[side=left]:border-r-0 after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:w-px after:brand-rule-y after:content-[''] md:animate-sidebar-in"
         >
             <SidebarHeader className="flex-row items-center gap-2 border-b border-sidebar-border px-4 py-4 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0">
                 <Link
