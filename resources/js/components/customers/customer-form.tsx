@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
+import { cn } from '@/lib/utils';
 import { index } from '@/routes/customers';
 import type { Customer } from '@/types';
 
@@ -23,16 +24,18 @@ function Field({
     label,
     hint,
     error,
+    className,
     children,
 }: {
     id: string;
     label: string;
     hint?: string;
     error?: string;
+    className?: string;
     children: ReactNode;
 }) {
     return (
-        <div className="grid content-start gap-1.5">
+        <div className={cn('grid content-start gap-1.5', className)}>
             <Label htmlFor={id} className="text-xs font-semibold">
                 {label}
                 {hint && (
