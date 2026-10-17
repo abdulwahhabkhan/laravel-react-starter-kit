@@ -11,6 +11,7 @@ beforeEach(function (): void {
 });
 
 /**
+ * @param  array<string, mixed>  $overrides
  * @return array<string, mixed>
  */
 function validOrderItemPayload(Product $product, array $overrides = []): array

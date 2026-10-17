@@ -61,7 +61,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request): RedirectResponse
     {
-        $product = Product::create($request->validated());
+        $product = Product::query()->create($request->validated());
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Product :name created.', ['name' => $product->name])]);
 

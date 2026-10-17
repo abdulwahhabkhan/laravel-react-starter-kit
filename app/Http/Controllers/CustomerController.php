@@ -23,7 +23,7 @@ class CustomerController extends Controller
         $city = mb_trim($request->string('city')->toString());
         $region = mb_trim($request->string('region')->toString());
 
-        $customers = Account::customer()
+        $customers = Account::query()->customer()
             ->when($search !== '', fn (Builder $query) => $query->where(
                 fn (Builder $query) => $query
                     ->whereLike('name', "%{$search}%")
@@ -38,7 +38,7 @@ class CustomerController extends Controller
             ->withQueryString()
             ->through(fn (Account $account): array => $this->customerData($account));
 
-        $cityOptions = Account::customer()
+        $cityOptions = Account::query()->customer()
             ->select('city')
             ->whereNotNull('city')
             ->where('city', '!=', '')
@@ -48,7 +48,7 @@ class CustomerController extends Controller
             ->map(fn (string $city): array => ['value' => $city, 'label' => $city])
             ->values();
 
-        $regionOptions = Account::customer()
+        $regionOptions = Account::query()->customer()
             ->select('region')
             ->whereNotNull('region')
             ->where('region', '!=', '')
@@ -83,7 +83,7 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request): RedirectResponse
     {
-        $account = Account::create([
+        $account = Account::query()->create([
             'type' => AccountType::Customer,
             ...$request->validated(),
         ]);

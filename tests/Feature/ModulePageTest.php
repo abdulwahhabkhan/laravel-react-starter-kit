@@ -13,7 +13,7 @@ test('authenticated users can visit a module page', function (): void {
 
     $this->get(route('modules.show', ['catalog', 'categories']))
         ->assertOk()
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->component('modules/show')
             ->where('module', 'catalog')
             ->where('page', 'categories'));
@@ -24,7 +24,7 @@ test('customers route renders the customers index page', function (): void {
 
     $this->get(route('customers.index'))
         ->assertOk()
-        ->assertInertia(fn (Assert $page) => $page->component('sales/customers/index'));
+        ->assertInertia(fn (Assert $page): Assert => $page->component('sales/customers/index'));
 });
 
 test('unknown module pages return not found', function (string $module, string $page): void {

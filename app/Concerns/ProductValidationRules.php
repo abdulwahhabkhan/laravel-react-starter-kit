@@ -4,8 +4,8 @@ namespace App\Concerns;
 
 use App\Enums\UnitOfMeasure;
 use App\Models\Product;
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Validation\Rule;
+use Stringable;
 
 trait ProductValidationRules
 {
@@ -27,7 +27,7 @@ trait ProductValidationRules
     /**
      * Get the validation rules used to create or update a product.
      *
-     * @return array<string, array<int, ValidationRule|array<mixed>|string>>
+     * @return array<string, array<int, Stringable|string>>
      */
     protected function productRules(?Product $product = null): array
     {

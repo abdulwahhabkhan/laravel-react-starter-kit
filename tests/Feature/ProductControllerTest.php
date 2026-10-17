@@ -10,6 +10,7 @@ beforeEach(function (): void {
 });
 
 /**
+ * @param  array<string, mixed>  $overrides
  * @return array<string, mixed>
  */
 function validProductPayload(array $overrides = []): array
@@ -37,7 +38,7 @@ test('products are listed newest first', function (): void {
 
     $this->get(route('products.index'))
         ->assertOk()
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->component('catalog/products/index')
             ->has('products.data', 2)
             ->where('products.data.0.id', $newer->id)
@@ -51,7 +52,7 @@ test('products can be searched by name, sku or upc', function (string $search): 
     Product::factory()->create(['name' => 'Raw Silk Ivory', 'sku' => 'SLK-RAW-IVY', 'upc' => '8961000000038']);
 
     $this->get(route('products.index', ['search' => $search]))
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->has('products.data', 1)
             ->where('products.data.0.id', $match->id)
             ->where('filters.search', $search));
@@ -66,7 +67,7 @@ test('products can be filtered by unit of measure', function (): void {
     Product::factory()->create(['uom' => UnitOfMeasure::Box]);
 
     $this->get(route('products.index', ['uom' => UnitOfMeasure::Meter->value]))
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->has('products.data', 1)
             ->where('products.data.0.id', $meter->id)
             ->where('filters.uom', UnitOfMeasure::Meter->value));
@@ -76,7 +77,7 @@ test('an unknown unit of measure filter is ignored', function (): void {
     Product::factory()->count(2)->create();
 
     $this->get(route('products.index', ['uom' => 'parsec']))
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->has('products.data', 2)
             ->where('filters.uom', ''));
 });
@@ -84,7 +85,7 @@ test('an unknown unit of measure filter is ignored', function (): void {
 test('the create page is displayed', function (): void {
     $this->get(route('products.create'))
         ->assertOk()
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->component('catalog/products/create')
             ->has('uomOptions'));
 });
@@ -150,7 +151,7 @@ test('the edit page is displayed', function (): void {
 
     $this->get(route('products.edit', $product))
         ->assertOk()
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->component('catalog/products/edit')
             ->where('product.id', $product->id)
             ->where('product.sku', $product->sku)
@@ -171,7 +172,7 @@ test('a product can be updated and keep its own sku and upc', function (): void 
         ->and($product->sku)->toBe('CTN-LWN-060');
 });
 
-test('a product cannot take another product\'s sku', function (): void {
+test("a product cannot take another product's sku", function (): void {
     Product::factory()->create(['sku' => 'TAKEN-001']);
     $product = Product::factory()->create();
 

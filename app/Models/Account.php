@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Enums\AccountType;
 use Database\Factories\AccountFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,16 +34,6 @@ class Account extends BaseModel
     use HasFactory;
 
     /**
-     * Scope to customer accounts only.
-     *
-     * @return Builder<$this>
-     */
-    public function scopeCustomer(Builder $query): Builder
-    {
-        return $query->where('type', AccountType::Customer);
-    }
-
-    /**
      * Get the sales orders placed by the account.
      *
      * @return HasMany<Order, $this>
@@ -50,6 +41,18 @@ class Account extends BaseModel
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Scope to customer accounts only.
+     *
+     * @param  Builder<$this>  $query
+     * @return Builder<$this>
+     */
+    #[Scope]
+    protected function customer(Builder $query): Builder
+    {
+        return $query->where('type', AccountType::Customer);
     }
 
     /**

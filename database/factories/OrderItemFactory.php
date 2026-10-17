@@ -62,13 +62,13 @@ class OrderItemFactory extends Factory
     public function withProductData(): static
     {
         return $this->afterMaking(function (OrderItem $orderItem): void {
-            $product = Product::find($orderItem->product_id);
+            $product = Product::query()->find($orderItem->product_id);
 
             if ($product !== null) {
                 $orderItem->description = $product->name;
                 $orderItem->uom = $product->uom;
                 $orderItem->unit_price = (string) $product->price;
-                $orderItem->discount = 0;
+                $orderItem->discount = '0.00';
             }
         });
     }

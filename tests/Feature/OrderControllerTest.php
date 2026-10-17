@@ -5,6 +5,7 @@ use App\Models\Account;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Inertia\Testing\AssertableInertia as Assert;
 
 beforeEach(function (): void {
@@ -23,7 +24,7 @@ test('orders are listed newest first with their customer', function (): void {
 
     $this->get(route('orders.index'))
         ->assertOk()
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->component('sales/orders/index')
             ->has('orders.data', 2)
             ->where('orders.data.0.id', $newer->id)
@@ -37,7 +38,7 @@ test('orders can be searched by order number or customer name', function (string
     Order::factory()->create(['order_number' => 'SO-261017-0099']);
 
     $this->get(route('orders.index', ['search' => $search]))
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->has('orders.data', 1)
             ->where('orders.data.0.id', $match->id));
 })->with([
@@ -58,7 +59,7 @@ test('orders can be filtered by status, customer and order date range', function
         'from' => '2026-10-01',
         'to' => '2026-10-31',
     ]))
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->has('orders.data', 1)
             ->where('orders.data.0.id', $match->id)
             ->where('filters.status', 'confirmed'));
@@ -71,7 +72,7 @@ test('status counts ignore the selected status but respect other filters', funct
     Order::factory()->draft()->create();
 
     $this->get(route('orders.index', ['status' => 'confirmed', 'customer' => $customer->id]))
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->where('statusCounts.draft', 2)
             ->where('statusCounts.confirmed', 1));
 });
@@ -80,7 +81,7 @@ test('invalid status and date filters are ignored', function (): void {
     Order::factory()->count(2)->create();
 
     $this->get(route('orders.index', ['status' => 'shipped', 'from' => 'yesterday']))
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->has('orders.data', 2)
             ->where('filters.status', '')
             ->where('filters.from', ''));
@@ -117,13 +118,13 @@ test('the edit page shows the order with its items and loads products on demand'
 
     $this->get(route('orders.edit', $order))
         ->assertOk()
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->component('sales/orders/edit')
             ->where('order.id', $order->id)
             ->where('order.allows_line_changes', true)
             ->has('order.items', 1)
             ->missing('productOptions')
-            ->reloadOnly('productOptions', fn (Assert $reload) => $reload->has('productOptions', 1)));
+            ->reloadOnly('productOptions', fn (Assert $reload): Assert => $reload->has('productOptions', 1)));
 });
 
 test('the preview page shows the order', function (): void {
@@ -131,7 +132,7 @@ test('the preview page shows the order', function (): void {
 
     $this->get(route('orders.show', $order))
         ->assertOk()
-        ->assertInertia(fn (Assert $page) => $page
+        ->assertInertia(fn (Assert $page): Assert => $page
             ->component('sales/orders/show')
             ->where('order.order_number', $order->order_number)
             ->where('order.customer.name', $order->account->name));
@@ -155,8 +156,8 @@ test('order details can be updated', function (): void {
     expect($order->refresh())
         ->account_id->toBe($customer->id)
         ->status->toBe(OrderStatus::Confirmed)
-        ->delivery_date->toDateString()->toBe('2026-10-20')
-        ->notes->toBe('Deliver before noon.');
+        ->notes->toBe('Deliver before noon.')
+        ->and($order->delivery_date?->toDateString())->toBe('2026-10-20');
 });
 
 test('the delivery date cannot be before the order date', function (): void {
@@ -201,8 +202,8 @@ test('an order can keep its current non-customer account when saving details', f
     $order = Order::factory()->for(Account::factory()->sales())->draft()->create();
 
     $this->get(route('orders.edit', $order))
-        ->assertInertia(fn (Assert $page) => $page
-            ->where('customerOptions', fn ($options) => collect($options)->contains('id', $order->account_id)));
+        ->assertInertia(fn (Assert $page): Assert => $page
+            ->where('customerOptions', fn (Collection $options): bool => $options->contains('id', $order->account_id)));
 
     $this->put(route('orders.update', $order), [
         'account_id' => $order->account_id,

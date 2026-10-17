@@ -11,9 +11,10 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -27,7 +28,7 @@ class OrderController extends Controller
     {
         $filters = [
             'search' => mb_trim($request->string('search')->toString()),
-            'status' => OrderStatus::tryFrom($request->string('status')->toString())?->value ?? '',
+            'status' => OrderStatus::tryFrom($request->string('status')->toString())->value ?? '',
             'customer' => $request->integer('customer') ?: '',
             'from' => $this->dateFilter($request, 'from'),
             'to' => $this->dateFilter($request, 'to'),
@@ -64,7 +65,7 @@ class OrderController extends Controller
     public function store(StoreOrderRequest $request): RedirectResponse
     {
         $order = DB::transaction(function () use ($request): Order {
-            $order = Order::create([
+            $order = Order::query()->create([
                 'order_number' => 'SO-PENDING-'.str()->uuid(),
                 'account_id' => $request->integer('account_id'),
                 'user_id' => $request->user()?->id,
@@ -178,7 +179,7 @@ class OrderController extends Controller
     {
         $value = $request->string($key)->toString();
 
-        return Carbon::canBeCreatedFromFormat($value, 'Y-m-d') ? $value : '';
+        return Date::canBeCreatedFromFormat($value, 'Y-m-d') ? $value : '';
     }
 
     /**
@@ -188,17 +189,16 @@ class OrderController extends Controller
      */
     private function customerOptions(?Account $include = null): array
     {
-        return Account::customer()
+        return array_values(Account::query()->customer()
             ->orderBy('name')
             ->get(['id', 'name', 'city'])
-            ->when($include, fn ($accounts) => $accounts->push($include)->unique('id')->sortBy('name'))
+            ->when($include, fn (Collection $accounts): Collection => $accounts->push($include)->unique('id')->sortBy('name'))
             ->map(fn (Account $account): array => [
                 'id' => $account->id,
                 'name' => $account->name,
                 'city' => $account->city,
             ])
-            ->values()
-            ->all();
+            ->all());
     }
 
     /**
