@@ -623,7 +623,7 @@ export default function EditOrder({
                     icon="solar:cart-large-4-bold-duotone"
                     title={
                         <span className="flex items-center gap-3">
-                            <span className="font-mono">
+                            <span className="tabular-nums">
                                 {order.order_number}
                             </span>
                             <OrderStatusBadge

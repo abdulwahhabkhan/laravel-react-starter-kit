@@ -99,7 +99,7 @@ export default function ShowOrder({ order }: { order: Order }) {
                                 </div>
                             </div>
                             <div className="text-right">
-                                <p className="font-mono text-xl font-bold tracking-tight text-sidebar-primary">
+                                <p className="text-xl font-bold tracking-tight text-sidebar-primary tabular-nums">
                                     {order.order_number}
                                 </p>
                                 <OrderStatusBadge

@@ -325,7 +325,7 @@ export default function OrdersIndex({
                                                 <Link
                                                     href={show(order.id)}
                                                     prefetch
-                                                    className="font-mono text-[12.5px] font-semibold text-sidebar-primary hover:underline"
+                                                    className="text-[12.5px] font-semibold text-sidebar-primary tabular-nums hover:underline"
                                                 >
                                                     {order.order_number}
                                                 </Link>
