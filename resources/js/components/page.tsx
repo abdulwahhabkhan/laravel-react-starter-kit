@@ -1,54 +1,11 @@
 import { Icon } from '@iconify/react/offline';
 import type { ReactNode } from 'react';
-import { useOptionalSidebar } from '@/components/ui/sidebar';
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-} from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
 /**
  * Page building blocks matching the AFI shell. Each block fades up in turn:
  * the content area at 100ms (layout), header 120ms, filters 250ms, body 350ms.
  */
-
-/**
- * Desktop sidebar toggle shown before the page title. Mobile uses the
- * drawer trigger in the top bar, and the header layout has no sidebar.
- */
-function SidebarToggle() {
-    const sidebar = useOptionalSidebar();
-
-    if (!sidebar) {
-        return null;
-    }
-
-    const isCollapsed = sidebar.state === 'collapsed';
-
-    return (
-        <Tooltip>
-            <TooltipTrigger asChild>
-                <button
-                    type="button"
-                    onClick={sidebar.toggleSidebar}
-                    aria-label={
-                        isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'
-                    }
-                    className="hidden shrink-0 place-items-center rounded-md text-muted-foreground transition-colors outline-none hover:text-sidebar-primary focus-visible:ring-2 focus-visible:ring-sidebar-highlight md:grid"
-                >
-                    <Icon
-                        icon="solar:panel-left-line-duotone"
-                        className="size-5"
-                    />
-                </button>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">
-                {isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} (⌘B)
-            </TooltipContent>
-        </Tooltip>
-    );
-}
 
 /** Navy tile with a woven texture and dashed gold inner border, framing the page icon. */
 function PageIconTile({ icon }: { icon: string }) {
@@ -80,7 +37,6 @@ export function PageHeader({
     return (
         <div className="mb-4 flex animate-fade-up flex-wrap items-center justify-between gap-x-3 gap-y-2 [animation-delay:120ms]">
             <div className="flex min-w-0 items-center gap-3">
-                <SidebarToggle />
                 {icon && <PageIconTile icon={icon} />}
                 <h1 className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-2xl leading-[1.35] font-medium tracking-[-0.025em] text-foreground">
                     {title}

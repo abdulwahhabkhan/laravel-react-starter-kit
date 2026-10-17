@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react/offline';
 import { Link, router } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
 import AppLogo from '@/components/app-logo';
@@ -12,7 +13,13 @@ import {
     SidebarFooter,
     SidebarHeader,
     SidebarRail,
+    useSidebar,
 } from '@/components/ui/sidebar';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { dashboard } from '@/routes';
 import type { NavEntry, NavItem } from '@/types';
 
@@ -56,6 +63,40 @@ function firstLink(entries: NavEntry[]): NavItem | undefined {
     const [entry] = entries;
 
     return entry && isNavParentItem(entry) ? entry.items[0] : entry;
+}
+
+/**
+ * Desktop collapse/expand tab straddling the middle of the sidebar's right
+ * edge, revealed on sidebar hover or keyboard focus. Mobile opens the drawer
+ * from the top bar instead.
+ */
+function SidebarEdgeToggle() {
+    const { state, toggleSidebar } = useSidebar();
+    const isCollapsed = state === 'collapsed';
+    const label = isCollapsed ? 'Expand sidebar' : 'Collapse sidebar';
+
+    return (
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <button
+                    type="button"
+                    onClick={toggleSidebar}
+                    aria-label={label}
+                    className="absolute top-1/2 -right-3.5 z-30 grid size-7 -translate-y-1/2 place-items-center rounded-md bg-sidebar text-muted-foreground opacity-0 transition-[color,opacity] outline-none group-hover:opacity-100 hover:text-sidebar-primary focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-sidebar-highlight"
+                >
+                    <Icon
+                        icon={
+                            isCollapsed
+                                ? 'solar:panel-left-open-line-duotone'
+                                : 'solar:panel-left-close-line-duotone'
+                        }
+                        className="size-6"
+                    />
+                </button>
+            </TooltipTrigger>
+            <TooltipContent side="right">{label} (⌘B)</TooltipContent>
+        </Tooltip>
+    );
 }
 
 export function AppSidebar() {
@@ -133,6 +174,7 @@ export function AppSidebar() {
                 <NavUser />
             </SidebarFooter>
             <SidebarRail />
+            <SidebarEdgeToggle />
         </Sidebar>
     );
 }
