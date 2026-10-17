@@ -6,17 +6,14 @@ import { AppSidebarHeader } from '@/components/app-sidebar-header';
 import ErrorBoundary from '@/components/error-boundary';
 import type { AppLayoutProps } from '@/types';
 
-export default function AppSidebarLayout({
-    children,
-    breadcrumbs = [],
-}: AppLayoutProps) {
+export default function AppSidebarLayout({ children }: AppLayoutProps) {
     const { url, props } = usePage();
 
     return (
         <AppShell variant="sidebar">
             <AppSidebar />
             <AppContent variant="sidebar" className="min-w-0 overflow-x-clip">
-                <AppSidebarHeader breadcrumbs={breadcrumbs} />
+                <AppSidebarHeader />
 
                 {/* Keyed by path so the entrance animation replays and the error boundary resets on every
                     page visit, but not when only the query string changes (search, filters, pagination). */}

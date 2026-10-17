@@ -50,6 +50,17 @@ function SidebarToggle() {
     );
 }
 
+/** Navy tile with a woven texture and dashed gold inner border, framing the page icon. */
+function PageIconTile({ icon }: { icon: string }) {
+    return (
+        <span className="relative grid size-8 shrink-0 place-items-center overflow-hidden rounded-lg bg-linear-135 from-[#04203f] via-[#07305d] to-[#0d4a8a] text-white shadow-[0_4px_10px_-5px_rgb(7_48_93/0.55)]">
+            <span className="absolute inset-0 fabric-weave" />
+            <span className="absolute inset-[2px] rounded-[6px] border border-dashed border-sidebar-highlight/70" />
+            <Icon icon={icon} className="relative size-[17px]" />
+        </span>
+    );
+}
+
 /**
  * Page title row: title, optional description shown as an accent pill,
  * and optional action buttons aligned to the right.
@@ -57,16 +68,20 @@ function SidebarToggle() {
 export function PageHeader({
     title,
     description,
+    icon,
     actions,
 }: {
     title: ReactNode;
     description?: ReactNode;
+    /** Solar icon shown in a navy, gold-stitched tile before the title. */
+    icon?: string;
     actions?: ReactNode;
 }) {
     return (
-        <div className="mb-4 flex animate-fade-up flex-col gap-3 [animation-delay:120ms] lg:flex-row lg:items-center lg:justify-between">
+        <div className="mb-4 flex animate-fade-up flex-wrap items-center justify-between gap-x-3 gap-y-2 [animation-delay:120ms]">
             <div className="flex min-w-0 items-center gap-3">
                 <SidebarToggle />
+                {icon && <PageIconTile icon={icon} />}
                 <h1 className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-2xl leading-[1.35] font-medium tracking-[-0.025em] text-foreground">
                     {title}
                     {description && (
@@ -77,7 +92,7 @@ export function PageHeader({
                 </h1>
             </div>
             {actions && (
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2">
                     {actions}
                 </div>
             )}
