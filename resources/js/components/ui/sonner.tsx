@@ -12,6 +12,8 @@ function Toaster({ ...props }: ToasterProps) {
             theme={appearance}
             className="toaster group"
             position="bottom-right"
+            // 30% shorter than Sonner's 4s default.
+            duration={2800}
             style={
                 {
                     '--normal-bg': 'var(--popover)',
