@@ -6,6 +6,8 @@ namespace App\Enums;
 
 enum AccountType: string
 {
+    case Customer = 'customer';
+
     case Sales = 'sales';
 
     /**
@@ -14,6 +16,7 @@ enum AccountType: string
     public function label(): string
     {
         return match ($this) {
+            self::Customer => 'Customer',
             self::Sales => 'Sales',
         };
     }

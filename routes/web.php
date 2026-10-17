@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ModulePageController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,10 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
     Route::prefix('catalog')->group(function (): void {
         Route::resource('products', ProductController::class)->except('show');
+    });
+
+    Route::prefix('sales')->group(function (): void {
+        Route::resource('customers', CustomerController::class)->except('show');
     });
 
     // Placeholder pages; registered last so real module routes above take precedence.

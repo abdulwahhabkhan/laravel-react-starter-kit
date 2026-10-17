@@ -30,6 +30,16 @@ class AccountFactory extends Factory
     }
 
     /**
+     * Indicate that the account is a customer account.
+     */
+    public function customer(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'type' => AccountType::Customer,
+        ]);
+    }
+
+    /**
      * Indicate that the account is a sales account.
      */
     public function sales(): static

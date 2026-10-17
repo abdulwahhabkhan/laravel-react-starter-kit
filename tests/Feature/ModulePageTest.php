@@ -19,15 +19,12 @@ test('authenticated users can visit a module page', function (): void {
             ->where('page', 'categories'));
 });
 
-test('module pages with a dedicated component render it', function (): void {
+test('customers route renders the customers index page', function (): void {
     $this->actingAs(User::factory()->create());
 
-    $this->get(route('modules.show', ['sales', 'customers']))
+    $this->get(route('customers.index'))
         ->assertOk()
-        ->assertInertia(fn (Assert $page) => $page
-            ->component('sales/customers')
-            ->where('module', 'sales')
-            ->where('page', 'customers'));
+        ->assertInertia(fn (Assert $page) => $page->component('sales/customers/index'));
 });
 
 test('unknown module pages return not found', function (string $module, string $page): void {
