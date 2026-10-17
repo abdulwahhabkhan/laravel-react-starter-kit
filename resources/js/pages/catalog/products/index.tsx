@@ -1,10 +1,10 @@
-import { Icon } from '@iconify/react/offline';
-import { Head, Link, router, setLayoutProps } from '@inertiajs/react';
-import { useEffect, useRef, useState } from 'react';
-import { FilterSelect, filterFieldClassName } from '@/components/filter-field';
-import { PageContent, PageFilters, PageHeader } from '@/components/page';
-import { formatMoney } from '@/components/products/product-form';
-import { Button } from '@/components/ui/button';
+import { Icon } from "@iconify/react/offline";
+import { Head, Link, router, setLayoutProps } from "@inertiajs/react";
+import { useEffect, useRef, useState } from "react";
+import { FilterSelect, filterFieldClassName } from "@/components/filter-field";
+import { PageContent, PageFilters, PageHeader } from "@/components/page";
+import { formatMoney } from "@/components/products/product-form";
+import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogClose,
@@ -12,12 +12,12 @@ import {
     DialogDescription,
     DialogFooter,
     DialogTitle,
-} from '@/components/ui/dialog';
-import { Spinner } from '@/components/ui/spinner';
-import { cn } from '@/lib/utils';
-import { dashboard } from '@/routes';
-import { create, destroy, edit, index } from '@/routes/products';
-import type { Paginated, Product, UomOption } from '@/types';
+} from "@/components/ui/dialog";
+import { Spinner } from "@/components/ui/spinner";
+import { cn } from "@/lib/utils";
+import { dashboard } from "@/routes";
+import { create, destroy, edit, index } from "@/routes/products";
+import type { Paginated, Product, UomOption } from "@/types";
 
 type Filters = {
     search: string;
@@ -26,12 +26,12 @@ type Filters = {
 
 function formatDate(value: string | null): string {
     return value
-        ? new Date(value).toLocaleDateString('en-GB', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
+        ? new Date(value).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
           })
-        : '—';
+        : "—";
 }
 
 function Amount({ value }: { value: string }) {
@@ -58,10 +58,10 @@ function Margin({ product }: { product: Product }) {
     return (
         <span
             className={cn(
-                'inline-flex rounded-full px-2 py-0.5 text-[11px] font-semibold tabular-nums',
+                "inline-flex rounded-full px-2 py-0.5 text-[11px] font-semibold font-numeric",
                 percent < 0
-                    ? 'bg-rose-600/10 text-rose-700 dark:text-rose-400'
-                    : 'bg-emerald-600/10 text-emerald-700 dark:text-emerald-400',
+                    ? "bg-rose-600/10 text-rose-700 dark:text-rose-400"
+                    : "bg-emerald-600/10 text-emerald-700 dark:text-emerald-400",
             )}
         >
             {percent.toFixed(1)}%
@@ -77,7 +77,7 @@ function Pagination({ products }: { products: Paginated<Product> }) {
     return (
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-border px-4 py-3 text-xs text-muted-foreground">
             <span>
-                Showing {products.from} to {products.to} of {products.total}{' '}
+                Showing {products.from} to {products.to} of {products.total}{" "}
                 products
             </span>
             {products.last_page > 1 && (
@@ -87,14 +87,14 @@ function Pagination({ products }: { products: Paginated<Product> }) {
                 >
                     {products.links.map((link, position) => {
                         const label = link.label
-                            .replace('&laquo; Previous', 'Previous')
-                            .replace('Next &raquo;', 'Next');
+                            .replace("&laquo; Previous", "Previous")
+                            .replace("Next &raquo;", "Next");
                         const className = cn(
-                            'grid h-7 min-w-7 place-items-center rounded-md border px-2 font-semibold',
+                            "grid h-7 min-w-7 place-items-center rounded-md border px-2 font-semibold",
                             link.active
-                                ? 'border-sidebar-primary bg-sidebar-primary text-white dark:text-sidebar-primary-foreground'
-                                : 'border-border bg-card text-foreground hover:border-sidebar-primary/40',
-                            !link.url && 'pointer-events-none opacity-50',
+                                ? "border-sidebar-primary bg-sidebar-primary text-white dark:text-sidebar-primary-foreground"
+                                : "border-border bg-card text-foreground hover:border-sidebar-primary/40",
+                            !link.url && "pointer-events-none opacity-50",
                         );
 
                         return link.url ? (
@@ -103,7 +103,7 @@ function Pagination({ products }: { products: Paginated<Product> }) {
                                 href={link.url}
                                 preserveScroll
                                 className={className}
-                                aria-current={link.active ? 'page' : undefined}
+                                aria-current={link.active ? "page" : undefined}
                             >
                                 {label}
                             </Link>
@@ -137,8 +137,8 @@ export default function ProductsIndex({
 
     setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: dashboard() },
-            { title: 'Products', href: index() },
+            { title: "Dashboard", href: dashboard() },
+            { title: "Products", href: index() },
         ],
     });
 
@@ -185,7 +185,7 @@ export default function ProductsIndex({
         });
     };
 
-    const hasFilters = filters.search !== '' || filters.uom !== '';
+    const hasFilters = filters.search !== "" || filters.uom !== "";
     const firstRowNumber = products.from ?? 1;
 
     return (
@@ -194,7 +194,7 @@ export default function ProductsIndex({
             <div className="flex min-w-0 flex-1 flex-col">
                 <PageHeader
                     title="Products"
-                    description={`${products.total} ${products.total === 1 ? 'product' : 'products'}`}
+                    description={`${products.total} ${products.total === 1 ? "product" : "products"}`}
                     actions={
                         <Button
                             variant="theme"
@@ -222,7 +222,7 @@ export default function ProductsIndex({
                         aria-label="Search products"
                         className={cn(
                             filterFieldClassName,
-                            'lg:flex-1 lg:rounded-l-md',
+                            "lg:flex-1 lg:rounded-l-md",
                         )}
                     />
                     <FilterSelect
@@ -267,7 +267,7 @@ export default function ProductsIndex({
                                             key={product.id}
                                             className="border-b border-border/70 transition-colors last:border-0 hover:bg-accent/50"
                                         >
-                                            <td className="text-muted-foreground tabular-nums">
+                                            <td className="text-muted-foreground font-numeric">
                                                 {firstRowNumber + position}
                                             </td>
                                             <td>
@@ -300,10 +300,10 @@ export default function ProductsIndex({
                                                     {product.uom_label}
                                                 </span>
                                             </td>
-                                            <td className="text-right tabular-nums">
+                                            <td className="text-right font-numeric">
                                                 <Amount value={product.cost} />
                                             </td>
-                                            <td className="text-right tabular-nums">
+                                            <td className="text-right font-numeric">
                                                 <Amount value={product.price} />
                                             </td>
                                             <td className="text-right">
@@ -358,13 +358,13 @@ export default function ProductsIndex({
                                                     </span>
                                                     <p className="text-sm font-semibold">
                                                         {hasFilters
-                                                            ? 'No products match these filters'
-                                                            : 'No products yet'}
+                                                            ? "No products match these filters"
+                                                            : "No products yet"}
                                                     </p>
                                                     <p className="text-xs text-muted-foreground">
                                                         {hasFilters
-                                                            ? 'Try a different search or unit.'
-                                                            : 'Create your first product to start selling.'}
+                                                            ? "Try a different search or unit."
+                                                            : "Create your first product to start selling."}
                                                     </p>
                                                 </div>
                                             </td>
@@ -387,7 +387,7 @@ export default function ProductsIndex({
                     <DialogDescription>
                         <span className="font-semibold text-foreground">
                             {productToDelete?.name}
-                        </span>{' '}
+                        </span>{" "}
                         ({productToDelete?.sku}) will be permanently removed.
                         This cannot be undone.
                     </DialogDescription>

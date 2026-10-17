@@ -1,9 +1,9 @@
-import { Icon } from '@iconify/react/offline';
-import { Head, Link, router, setLayoutProps } from '@inertiajs/react';
-import { useEffect, useRef, useState } from 'react';
-import { FilterSelect, filterFieldClassName } from '@/components/filter-field';
-import { PageContent, PageFilters, PageHeader } from '@/components/page';
-import { Button } from '@/components/ui/button';
+import { Icon } from "@iconify/react/offline";
+import { Head, Link, router, setLayoutProps } from "@inertiajs/react";
+import { useEffect, useRef, useState } from "react";
+import { FilterSelect, filterFieldClassName } from "@/components/filter-field";
+import { PageContent, PageFilters, PageHeader } from "@/components/page";
+import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogClose,
@@ -11,12 +11,12 @@ import {
     DialogDescription,
     DialogFooter,
     DialogTitle,
-} from '@/components/ui/dialog';
-import { Spinner } from '@/components/ui/spinner';
-import { cn } from '@/lib/utils';
-import { dashboard } from '@/routes';
-import { create, destroy, edit, index } from '@/routes/customers';
-import type { Customer, FilterOption, Paginated } from '@/types';
+} from "@/components/ui/dialog";
+import { Spinner } from "@/components/ui/spinner";
+import { cn } from "@/lib/utils";
+import { dashboard } from "@/routes";
+import { create, destroy, edit, index } from "@/routes/customers";
+import type { Customer, FilterOption, Paginated } from "@/types";
 
 type Filters = {
     search: string;
@@ -26,12 +26,12 @@ type Filters = {
 
 function formatDate(value: string | null): string {
     return value
-        ? new Date(value).toLocaleDateString('en-GB', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
+        ? new Date(value).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
           })
-        : '—';
+        : "—";
 }
 
 function Pagination({ customers }: { customers: Paginated<Customer> }) {
@@ -42,7 +42,7 @@ function Pagination({ customers }: { customers: Paginated<Customer> }) {
     return (
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-border px-4 py-3 text-xs text-muted-foreground">
             <span>
-                Showing {customers.from} to {customers.to} of {customers.total}{' '}
+                Showing {customers.from} to {customers.to} of {customers.total}{" "}
                 customers
             </span>
             {customers.last_page > 1 && (
@@ -52,14 +52,14 @@ function Pagination({ customers }: { customers: Paginated<Customer> }) {
                 >
                     {customers.links.map((link, position) => {
                         const label = link.label
-                            .replace('&laquo; Previous', 'Previous')
-                            .replace('Next &raquo;', 'Next');
+                            .replace("&laquo; Previous", "Previous")
+                            .replace("Next &raquo;", "Next");
                         const className = cn(
-                            'grid h-7 min-w-7 place-items-center rounded-md border px-2 font-semibold',
+                            "grid h-7 min-w-7 place-items-center rounded-md border px-2 font-semibold",
                             link.active
-                                ? 'border-sidebar-primary bg-sidebar-primary text-white dark:text-sidebar-primary-foreground'
-                                : 'border-border bg-card text-foreground hover:border-sidebar-primary/40',
-                            !link.url && 'pointer-events-none opacity-50',
+                                ? "border-sidebar-primary bg-sidebar-primary text-white dark:text-sidebar-primary-foreground"
+                                : "border-border bg-card text-foreground hover:border-sidebar-primary/40",
+                            !link.url && "pointer-events-none opacity-50",
                         );
 
                         return link.url ? (
@@ -68,7 +68,7 @@ function Pagination({ customers }: { customers: Paginated<Customer> }) {
                                 href={link.url}
                                 preserveScroll
                                 className={className}
-                                aria-current={link.active ? 'page' : undefined}
+                                aria-current={link.active ? "page" : undefined}
                             >
                                 {label}
                             </Link>
@@ -104,8 +104,8 @@ export default function CustomersIndex({
 
     setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: dashboard() },
-            { title: 'Customers', href: index() },
+            { title: "Dashboard", href: dashboard() },
+            { title: "Customers", href: index() },
         ],
     });
 
@@ -159,9 +159,7 @@ export default function CustomersIndex({
     };
 
     const hasFilters =
-        filters.search !== '' ||
-        filters.city !== '' ||
-        filters.region !== '';
+        filters.search !== "" || filters.city !== "" || filters.region !== "";
     const firstRowNumber = customers.from ?? 1;
 
     return (
@@ -170,7 +168,7 @@ export default function CustomersIndex({
             <div className="flex min-w-0 flex-1 flex-col">
                 <PageHeader
                     title="Customers"
-                    description={`${customers.total} ${customers.total === 1 ? 'customer' : 'customers'}`}
+                    description={`${customers.total} ${customers.total === 1 ? "customer" : "customers"}`}
                     actions={
                         <Button
                             variant="theme"
@@ -198,7 +196,7 @@ export default function CustomersIndex({
                         aria-label="Search customers"
                         className={cn(
                             filterFieldClassName,
-                            'lg:flex-1 lg:rounded-l-md',
+                            "lg:flex-1 lg:rounded-l-md",
                         )}
                     />
                     <FilterSelect
@@ -262,15 +260,12 @@ export default function CustomersIndex({
                                                 key={customer.id}
                                                 className="border-b border-border/70 transition-colors last:border-0 hover:bg-accent/50"
                                             >
-                                                <td className="text-muted-foreground tabular-nums">
-                                                    {firstRowNumber +
-                                                        position}
+                                                <td className="text-muted-foreground font-numeric">
+                                                    {firstRowNumber + position}
                                                 </td>
                                                 <td>
                                                     <Link
-                                                        href={edit(
-                                                            customer.id,
-                                                        )}
+                                                        href={edit(customer.id)}
                                                         prefetch
                                                         className="text-[13px] font-semibold text-sidebar-primary hover:underline"
                                                     >
@@ -355,13 +350,13 @@ export default function CustomersIndex({
                                                     </span>
                                                     <p className="text-sm font-semibold">
                                                         {hasFilters
-                                                            ? 'No customers match these filters'
-                                                            : 'No customers yet'}
+                                                            ? "No customers match these filters"
+                                                            : "No customers yet"}
                                                     </p>
                                                     <p className="text-xs text-muted-foreground">
                                                         {hasFilters
-                                                            ? 'Try a different search or filter.'
-                                                            : 'Create your first customer to start selling.'}
+                                                            ? "Try a different search or filter."
+                                                            : "Create your first customer to start selling."}
                                                     </p>
                                                 </div>
                                             </td>
@@ -377,16 +372,14 @@ export default function CustomersIndex({
 
             <Dialog
                 open={customerToDelete !== null}
-                onOpenChange={(open) =>
-                    !open && setCustomerToDelete(null)
-                }
+                onOpenChange={(open) => !open && setCustomerToDelete(null)}
             >
                 <DialogContent>
                     <DialogTitle>Delete this customer?</DialogTitle>
                     <DialogDescription>
                         <span className="font-semibold text-foreground">
                             {customerToDelete?.name}
-                        </span>{' '}
+                        </span>{" "}
                         will be permanently removed. This cannot be undone.
                     </DialogDescription>
                     <DialogFooter className="gap-2">

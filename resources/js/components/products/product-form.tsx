@@ -1,21 +1,21 @@
-import { Icon } from '@iconify/react/offline';
-import { Link, useForm } from '@inertiajs/react';
-import type { FormEvent, ReactNode } from 'react';
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Icon } from "@iconify/react/offline";
+import { Link, useForm } from "@inertiajs/react";
+import type { FormEvent, ReactNode } from "react";
+import InputError from "@/components/input-error";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select';
-import { Spinner } from '@/components/ui/spinner';
-import { cn } from '@/lib/utils';
-import { index } from '@/routes/products';
-import type { Product, UomOption } from '@/types';
+} from "@/components/ui/select";
+import { Spinner } from "@/components/ui/spinner";
+import { cn } from "@/lib/utils";
+import { index } from "@/routes/products";
+import type { Product, UomOption } from "@/types";
 
 export type ProductFormData = {
     name: string;
@@ -71,7 +71,7 @@ function Field({
     children: ReactNode;
 }) {
     return (
-        <div className={cn('grid content-start gap-1.5', className)}>
+        <div className={cn("grid content-start gap-1.5", className)}>
             <Label htmlFor={id} className="text-xs font-semibold">
                 {label}
                 {hint && (
@@ -113,7 +113,7 @@ function MoneyInput({
                 placeholder="0.00"
                 aria-invalid={invalid}
                 onChange={(event) => onChange(event.target.value)}
-                className="rounded-l-none bg-card tabular-nums"
+                className="rounded-l-none bg-card font-numeric"
             />
         </div>
     );
@@ -129,14 +129,14 @@ function SummaryRow({
     return (
         <div className="flex items-center justify-between gap-3 py-2 text-[13px]">
             <span className="text-muted-foreground">{label}</span>
-            <span className="font-semibold tabular-nums">{children}</span>
+            <span className="font-semibold font-numeric">{children}</span>
         </div>
     );
 }
 
 /** Formats an amount with two decimals and grouping: 250.5 → "250.50". */
 export function formatMoney(amount: number): string {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat("en-US", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
     }).format(amount);
@@ -145,7 +145,7 @@ export function formatMoney(amount: number): string {
 function formatAmount(value: string): string {
     const amount = Number.parseFloat(value);
 
-    return Number.isFinite(amount) ? `Rs ${formatMoney(amount)}` : '—';
+    return Number.isFinite(amount) ? `Rs ${formatMoney(amount)}` : "—";
 }
 
 /** Live preview of the product being edited, with its unit margin. */
@@ -170,26 +170,26 @@ function ProductSummary({
         .filter(Boolean)
         .slice(0, 2)
         .map((word) => word[0].toUpperCase())
-        .join('');
+        .join("");
 
     return (
         <aside className="rounded-xl border border-card-border bg-card p-5 text-card-foreground shadow-card lg:sticky lg:top-5">
             <div className="flex items-center gap-3 border-b border-border pb-4">
                 <span className="grid size-11 shrink-0 place-items-center rounded-full bg-[repeating-linear-gradient(45deg,rgb(255_255_255/0.09)_0_1px,transparent_1px_4px),linear-gradient(135deg,#062a52_0%,#0d4886_45%,#07305d_100%)] text-sm font-bold text-white">
-                    {initials || '?'}
+                    {initials || "?"}
                 </span>
                 <div className="min-w-0">
                     <p className="truncate text-sm font-semibold text-sidebar-primary">
-                        {data.name || 'Product name'}
+                        {data.name || "Product name"}
                     </p>
                     <p className="truncate font-mono text-xs text-muted-foreground">
-                        {data.sku || 'No SKU yet'}
+                        {data.sku || "No SKU yet"}
                     </p>
                 </div>
             </div>
             <div className="divide-y divide-border/70 pt-1">
-                <SummaryRow label="Unit">{uomLabel ?? '—'}</SummaryRow>
-                <SummaryRow label="UPC">{data.upc || '—'}</SummaryRow>
+                <SummaryRow label="Unit">{uomLabel ?? "—"}</SummaryRow>
+                <SummaryRow label="UPC">{data.upc || "—"}</SummaryRow>
                 <SummaryRow label="Cost">{formatAmount(data.cost)}</SummaryRow>
                 <SummaryRow label="Price">
                     {formatAmount(data.price)}
@@ -199,8 +199,8 @@ function ProductSummary({
                         <span
                             className={cn(
                                 margin < 0
-                                    ? 'text-rose-700 dark:text-rose-400'
-                                    : 'text-emerald-700 dark:text-emerald-400',
+                                    ? "text-rose-700 dark:text-rose-400"
+                                    : "text-emerald-700 dark:text-emerald-400",
                             )}
                         >
                             Rs {formatMoney(margin)}
@@ -211,7 +211,7 @@ function ProductSummary({
                             )}
                         </span>
                     ) : (
-                        '—'
+                        "—"
                     )}
                 </SummaryRow>
             </div>
@@ -241,15 +241,15 @@ export function ProductForm({
     product?: Product;
     uomOptions: UomOption[];
     submitUrl: string;
-    method: 'post' | 'put';
+    method: "post" | "put";
 }) {
     const form = useForm<ProductFormData>({
-        name: product?.name ?? '',
-        sku: product?.sku ?? '',
-        upc: product?.upc ?? '',
-        cost: product?.cost ?? '',
-        price: product?.price ?? '',
-        uom: product?.uom ?? uomOptions[0]?.value ?? '',
+        name: product?.name ?? "",
+        sku: product?.sku ?? "",
+        upc: product?.upc ?? "",
+        cost: product?.cost ?? "",
+        price: product?.price ?? "",
+        uom: product?.uom ?? uomOptions[0]?.value ?? "",
     });
     const { data, setData, errors, processing } = form;
 
@@ -281,7 +281,7 @@ export function ProductForm({
                                 placeholder="e.g. Premium Lawn 60s"
                                 aria-invalid={!!errors.name}
                                 onChange={(event) =>
-                                    setData('name', event.target.value)
+                                    setData("name", event.target.value)
                                 }
                                 className="bg-card"
                             />
@@ -293,7 +293,7 @@ export function ProductForm({
                                 placeholder="e.g. CTN-LWN-060"
                                 aria-invalid={!!errors.sku}
                                 onChange={(event) =>
-                                    setData('sku', event.target.value)
+                                    setData("sku", event.target.value)
                                 }
                                 className="bg-card font-mono"
                             />
@@ -311,7 +311,7 @@ export function ProductForm({
                                 placeholder="Barcode number"
                                 aria-invalid={!!errors.upc}
                                 onChange={(event) =>
-                                    setData('upc', event.target.value)
+                                    setData("upc", event.target.value)
                                 }
                                 className="bg-card font-mono"
                             />
@@ -331,7 +331,7 @@ export function ProductForm({
                         >
                             <Select
                                 value={data.uom}
-                                onValueChange={(value) => setData('uom', value)}
+                                onValueChange={(value) => setData("uom", value)}
                             >
                                 <SelectTrigger
                                     id="uom"
@@ -357,7 +357,7 @@ export function ProductForm({
                                 id="cost"
                                 value={data.cost}
                                 invalid={!!errors.cost}
-                                onChange={(value) => setData('cost', value)}
+                                onChange={(value) => setData("cost", value)}
                             />
                         </Field>
                         <Field
@@ -369,7 +369,7 @@ export function ProductForm({
                                 id="price"
                                 value={data.price}
                                 invalid={!!errors.price}
-                                onChange={(value) => setData('price', value)}
+                                onChange={(value) => setData("price", value)}
                             />
                         </Field>
                     </FormCard>
@@ -381,8 +381,8 @@ export function ProductForm({
             <div className="sticky bottom-3 z-10 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-card-border bg-card/95 px-5 py-3 shadow-card backdrop-blur">
                 <p className="text-xs text-muted-foreground">
                     {product
-                        ? 'Changes apply to new orders and stock movements.'
-                        : 'The product can be purchased and sold right after saving.'}
+                        ? "Changes apply to new orders and stock movements."
+                        : "The product can be purchased and sold right after saving."}
                 </p>
                 <div className="flex items-center gap-2">
                     <Button variant="outline" size="sm" asChild>
@@ -402,7 +402,7 @@ export function ProductForm({
                         ) : (
                             <Icon icon="solar:clipboard-check-bold-duotone" />
                         )}
-                        {product ? 'Save changes' : 'Create product'}
+                        {product ? "Save changes" : "Create product"}
                     </Button>
                 </div>
             </div>

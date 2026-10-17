@@ -1,9 +1,9 @@
-import { useEffect, useId, useRef, useState } from 'react';
-import type { MonthlyRevenue } from '@/components/dashboard/dashboard-data';
+import { useEffect, useId, useRef, useState } from "react";
+import type { MonthlyRevenue } from "@/components/dashboard/dashboard-data";
 import {
     formatCompactRupees,
     formatRupees,
-} from '@/components/dashboard/panel';
+} from "@/components/dashboard/panel";
 
 const HEIGHT = 260;
 const PADDING = { top: 16, right: 12, bottom: 28, left: 44 };
@@ -46,7 +46,7 @@ export function RevenueChart({ data }: { data: MonthlyRevenue[] }) {
 
     const line = data
         .map((d, index) => `${xFor(index)},${yFor(d.revenue)}`)
-        .join(' ');
+        .join(" ");
     const area = `${xFor(0)},${yFor(0)} ${line} ${xFor(data.length - 1)},${yFor(0)}`;
 
     const active = activeIndex === null ? null : data[activeIndex];
@@ -91,16 +91,16 @@ export function RevenueChart({ data }: { data: MonthlyRevenue[] }) {
                             y1={yFor(tick)}
                             y2={yFor(tick)}
                             className="stroke-border"
-                            strokeDasharray={tick === 0 ? undefined : '3 4'}
+                            strokeDasharray={tick === 0 ? undefined : "3 4"}
                         />
                         <text
                             x={PADDING.left - 10}
                             y={yFor(tick)}
                             textAnchor="end"
                             dominantBaseline="middle"
-                            className="fill-muted-foreground text-[11px] tabular-nums"
+                            className="fill-muted-foreground text-[11px] font-numeric"
                         >
-                            {tick === 0 ? '0' : formatCompactRupees(tick)}
+                            {tick === 0 ? "0" : formatCompactRupees(tick)}
                         </text>
                     </g>
                 ))}
@@ -173,14 +173,14 @@ export function RevenueChart({ data }: { data: MonthlyRevenue[] }) {
                             <span className="size-2 rounded-full bg-chart-1" />
                             Revenue
                         </span>
-                        <span className="font-semibold tabular-nums">
+                        <span className="font-semibold font-numeric">
                             Rs {formatRupees(active.revenue)}
                         </span>
                     </p>
                     {changeFromPrevious !== null && (
-                        <p className="mt-0.5 text-muted-foreground tabular-nums">
-                            {changeFromPrevious >= 0 ? '+' : ''}
-                            {changeFromPrevious.toFixed(1)}% vs{' '}
+                        <p className="mt-0.5 text-muted-foreground font-numeric">
+                            {changeFromPrevious >= 0 ? "+" : ""}
+                            {changeFromPrevious.toFixed(1)}% vs{" "}
                             {previous?.month}
                         </p>
                     )}

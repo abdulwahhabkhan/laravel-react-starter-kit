@@ -1,10 +1,10 @@
-import { Icon } from '@iconify/react/offline';
-import { Link } from '@inertiajs/react';
-import type { ReactNode } from 'react';
-import { formatMoney } from '@/components/products/product-form';
-import type { Tone } from '@/components/status-filter';
-import { cn } from '@/lib/utils';
-import type { OrderStatus, Paginated } from '@/types';
+import { Icon } from "@iconify/react/offline";
+import { Link } from "@inertiajs/react";
+import type { ReactNode } from "react";
+import { formatMoney } from "@/components/products/product-form";
+import type { Tone } from "@/components/status-filter";
+import { cn } from "@/lib/utils";
+import type { OrderStatus, Paginated } from "@/types";
 
 /** Tone, dot and icon for each order status, shared by tabs, badges and the preview. */
 export const orderStatusStyles: Record<
@@ -12,28 +12,28 @@ export const orderStatusStyles: Record<
     { badge: string; dot: string; icon: string; tone: Tone }
 > = {
     draft: {
-        tone: 'orange',
-        badge: 'bg-tone-orange-bg text-tone-orange ring-tone-orange/20',
-        dot: 'bg-tone-orange',
-        icon: 'solar:pen-new-square-bold-duotone',
+        tone: "orange",
+        badge: "bg-tone-orange-bg text-tone-orange ring-tone-orange/20",
+        dot: "bg-tone-orange",
+        icon: "solar:pen-new-square-bold-duotone",
     },
     confirmed: {
-        tone: 'navy',
-        badge: 'bg-tone-navy-bg text-tone-navy ring-tone-navy/20',
-        dot: 'bg-tone-navy',
-        icon: 'solar:check-circle-bold-duotone',
+        tone: "navy",
+        badge: "bg-tone-navy-bg text-tone-navy ring-tone-navy/20",
+        dot: "bg-tone-navy",
+        icon: "solar:check-circle-bold-duotone",
     },
     fulfilled: {
-        tone: 'green',
-        badge: 'bg-tone-green-bg text-tone-green ring-tone-green/20',
-        dot: 'bg-tone-green',
-        icon: 'solar:box-bold-duotone',
+        tone: "green",
+        badge: "bg-tone-green-bg text-tone-green ring-tone-green/20",
+        dot: "bg-tone-green",
+        icon: "solar:box-bold-duotone",
     },
     cancelled: {
-        tone: 'red',
-        badge: 'bg-tone-red-bg text-tone-red ring-tone-red/20',
-        dot: 'bg-tone-red',
-        icon: 'solar:close-circle-bold-duotone',
+        tone: "red",
+        badge: "bg-tone-red-bg text-tone-red ring-tone-red/20",
+        dot: "bg-tone-red",
+        icon: "solar:close-circle-bold-duotone",
     },
 };
 
@@ -51,7 +51,7 @@ export function OrderStatusBadge({
     return (
         <span
             className={cn(
-                'inline-flex items-center gap-1.5 rounded-md px-2.5 py-0.5 text-[11.5px] font-semibold whitespace-nowrap ring-1 ring-inset',
+                "inline-flex items-center gap-1.5 rounded-md px-2.5 py-0.5 text-[11.5px] font-semibold whitespace-nowrap ring-1 ring-inset",
                 styles.badge,
                 className,
             )}
@@ -64,7 +64,7 @@ export function OrderStatusBadge({
 
 export function formatDate(value: string | null): string {
     if (!value) {
-        return '—';
+        return "—";
     }
 
     // Date-only strings are parsed as local dates so they never shift a day.
@@ -72,16 +72,16 @@ export function formatDate(value: string | null): string {
         ? new Date(`${value}T00:00:00`)
         : new Date(value);
 
-    return date.toLocaleDateString('en-GB', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
+    return date.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
     });
 }
 
 export function toNumber(value: string | number | null | undefined): number {
     const number =
-        typeof value === 'number' ? value : Number.parseFloat(value ?? '');
+        typeof value === "number" ? value : Number.parseFloat(value ?? "");
 
     return Number.isFinite(number) ? number : 0;
 }
@@ -95,7 +95,7 @@ export function Money({
     className?: string;
 }) {
     return (
-        <span className={cn('tabular-nums', className)}>
+        <span className={cn("font-numeric", className)}>
             <span className="mr-1 text-[0.8em] font-normal text-muted-foreground">
                 Rs
             </span>
@@ -106,7 +106,7 @@ export function Money({
 
 /** Formats a quantity without trailing zeros, e.g. "4.000" → "4". */
 export function formatQuantity(value: string | number): string {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat("en-US", {
         maximumFractionDigits: 3,
     }).format(toNumber(value));
 }
@@ -130,7 +130,7 @@ export function OrderCard({
     return (
         <section
             className={cn(
-                'rounded-xl border border-card-border bg-card text-card-foreground shadow-card',
+                "rounded-xl border border-card-border bg-card text-card-foreground shadow-card",
                 className,
             )}
         >
@@ -178,14 +178,14 @@ export function Pagination<T>({
                 >
                     {page.links.map((link, position) => {
                         const label = link.label
-                            .replace('&laquo; Previous', 'Previous')
-                            .replace('Next &raquo;', 'Next');
+                            .replace("&laquo; Previous", "Previous")
+                            .replace("Next &raquo;", "Next");
                         const className = cn(
-                            'grid h-7 min-w-7 place-items-center rounded-md border px-2 font-semibold',
+                            "grid h-7 min-w-7 place-items-center rounded-md border px-2 font-semibold",
                             link.active
-                                ? 'border-sidebar-primary bg-sidebar-primary text-white dark:text-sidebar-primary-foreground'
-                                : 'border-border bg-card text-foreground hover:border-sidebar-primary/40',
-                            !link.url && 'pointer-events-none opacity-50',
+                                ? "border-sidebar-primary bg-sidebar-primary text-white dark:text-sidebar-primary-foreground"
+                                : "border-border bg-card text-foreground hover:border-sidebar-primary/40",
+                            !link.url && "pointer-events-none opacity-50",
                         );
 
                         return link.url ? (
@@ -195,7 +195,7 @@ export function Pagination<T>({
                                 preserveScroll
                                 preserveState
                                 className={className}
-                                aria-current={link.active ? 'page' : undefined}
+                                aria-current={link.active ? "page" : undefined}
                             >
                                 {label}
                             </Link>

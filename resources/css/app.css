@@ -291,6 +291,12 @@
     }
 }
 
+/* Figures (amounts, quantities, counts, order numbers) in Google Sans, whose digits sit tighter than Inter's. */
+@utility font-numeric {
+    font-family: var(--font-heading);
+    font-variant-numeric: tabular-nums;
+}
+
 /* Logo-coloured hairline (gold → navy → gold); -x runs across, -y runs down. */
 @utility brand-rule-x {
     background-image: linear-gradient(

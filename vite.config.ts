@@ -127,12 +127,15 @@ export default defineConfig({
             fonts: [
                 bunny('Inter', {
                     weights: [400, 500, 600, 700],
+                    preload: [{ weight: 400 }, { weight: 500 }],
                 }),
                 bunny('Google Sans', {
-                    weights: [500, 600, 700],
+                    weights: [400, 500, 600, 700],
+                    preload: [{ weight: 600 }],
                 }),
                 bunny('IBM Plex Mono', {
                     weights: [400, 500, 600],
+                    preload: false,
                 }),
             ],
         }),
