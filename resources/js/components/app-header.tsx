@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react/offline';
 import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { PointerEvent } from 'react';
 import { mainNavItems } from '@/components/app-sidebar';
 import AppLogo from '@/components/app-logo';
@@ -403,14 +403,39 @@ function UserMenu() {
     );
 }
 
+/** Whether the window has scrolled away from the top, to deepen the bar's shadow. */
+function useIsScrolled(): boolean {
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const update = () => setIsScrolled(window.scrollY > 4);
+
+        update();
+        window.addEventListener('scroll', update, { passive: true });
+
+        return () => window.removeEventListener('scroll', update);
+    }, []);
+
+    return isScrolled;
+}
+
 /**
  * Sticky top bar carrying the same menu as the sidebar: plain links for the
  * Overview entries and a dropdown per module. Below `lg` the menu moves into
  * a drawer.
  */
 export function AppHeader() {
+    const isScrolled = useIsScrolled();
+
     return (
-        <header className="sticky top-0 z-30 bg-sidebar after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:brand-rule-x after:content-[''] print:hidden">
+        <header
+            className={cn(
+                'sticky top-0 z-30 bg-sidebar shadow-[0_1px_2px_rgb(30_24_20/0.05),0_4px_12px_-6px_rgb(30_24_20/0.12)] transition-shadow duration-300',
+                isScrolled &&
+                    'shadow-[0_1px_3px_rgb(30_24_20/0.08),0_10px_24px_-8px_rgb(7_48_93/0.28)]',
+                "after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:brand-rule-x after:content-[''] print:hidden",
+            )}
+        >
             <div className="flex h-(--app-header-height) w-full items-center gap-3 px-4 md:px-6">
                 <MobileNav />
                 <Link
