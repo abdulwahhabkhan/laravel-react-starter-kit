@@ -41,6 +41,16 @@ const menuButtonClassName = cn(
     'group-data-[collapsible=icon]:size-11! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0! group-data-[collapsible=icon]:hover:bg-transparent group-data-[collapsible=icon]:data-[active=true]:bg-transparent',
 );
 
+/**
+ * Tree connector beside each sub-menu entry: a rounded elbow that ends in a
+ * small hollow dot, tinted gold on the current page.
+ */
+const subItemConnectorClassName = cn(
+    "before:pointer-events-none before:absolute before:top-0 before:-left-3 before:h-[calc(50%+0.75px)] before:w-[7px] before:rounded-bl-[6px] before:border-b-[1.5px] before:border-l-[1.5px] before:border-sidebar-border before:content-['']",
+    "after:pointer-events-none after:absolute after:top-1/2 after:-left-[5px] after:size-[5px] after:-translate-y-1/2 after:rounded-full after:border-[1.5px] after:border-sidebar-border after:bg-sidebar after:content-['']",
+    'has-[[data-active=true]]:before:border-sidebar-highlight has-[[data-active=true]]:after:border-sidebar-highlight',
+);
+
 /** Rounded square behind a menu icon. */
 export function NavIconTile({
     icon,
@@ -149,15 +159,19 @@ function NavParent({
     const { state, isMobile } = useSidebar();
     const hasActiveChild = item.items.some((child) => isCurrentUrl(child.href));
     const [isOpen, setIsOpen] = useState(hasActiveChild);
+    const [isFlyoutOpen, setIsFlyoutOpen] = useState(false);
 
     if (state === 'collapsed' && !isMobile) {
         return (
             <SidebarMenuItem>
-                <DropdownMenu>
+                <DropdownMenu onOpenChange={setIsFlyoutOpen}>
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton
                             isActive={hasActiveChild}
-                            tooltip={{ children: item.title }}
+                            tooltip={{
+                                children: item.title,
+                                hidden: isFlyoutOpen,
+                            }}
                             className={cn(
                                 menuButtonClassName,
                                 'data-[state=open]:[&>span]:bg-sidebar-tile-active data-[state=open]:[&>span]:text-sidebar-tile-active-foreground',
@@ -231,13 +245,16 @@ function NavParent({
                     </SidebarMenuButton>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
-                    <SidebarMenuSub className="mt-1 mr-0 mb-1.5 ml-[1.2rem] translate-x-0 gap-[3px] border-l-[1.5px] border-sidebar-border/80 py-0 pr-0 pl-3">
+                    <SidebarMenuSub className="mt-1 mr-0 mb-1.5 ml-[1.2rem] translate-x-0 gap-[3px] border-l-0 py-0 pr-0 pl-3">
                         {item.items.map((child) => (
-                            <SidebarMenuSubItem key={child.title}>
+                            <SidebarMenuSubItem
+                                key={child.title}
+                                className={subItemConnectorClassName}
+                            >
                                 <SidebarMenuSubButton
                                     asChild
                                     isActive={isCurrentUrl(child.href)}
-                                    className="h-auto translate-x-0 rounded-[7px] px-2.5 py-[0.42rem] text-[12.5px] font-medium text-sidebar-accent-foreground/85 hover:bg-sidebar-primary/[0.05] hover:text-sidebar-primary data-[active=true]:relative data-[active=true]:overflow-visible data-[active=true]:bg-sidebar-highlight/15 data-[active=true]:font-bold data-[active=true]:text-sidebar-primary data-[active=true]:before:absolute data-[active=true]:before:inset-y-1.5 data-[active=true]:before:-left-[14px] data-[active=true]:before:w-[2.5px] data-[active=true]:before:rounded-full data-[active=true]:before:bg-sidebar-highlight data-[active=true]:before:content-[''] dark:hover:bg-white/[0.04]"
+                                    className="h-auto translate-x-0 rounded-[7px] px-2.5 py-[0.42rem] text-[12.5px] font-medium text-sidebar-accent-foreground/85 hover:bg-sidebar-primary/[0.05] hover:text-sidebar-primary data-[active=true]:bg-sidebar-highlight/15 data-[active=true]:font-bold data-[active=true]:text-sidebar-primary dark:hover:bg-white/[0.04]"
                                 >
                                     <Link href={child.href} prefetch>
                                         <span>{child.title}</span>

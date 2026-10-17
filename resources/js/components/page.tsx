@@ -1,6 +1,11 @@
 import { Icon } from '@iconify/react/offline';
 import type { ReactNode } from 'react';
 import { useOptionalSidebar } from '@/components/ui/sidebar';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
 /**
@@ -22,17 +27,26 @@ function SidebarToggle() {
     const isCollapsed = sidebar.state === 'collapsed';
 
     return (
-        <button
-            type="button"
-            onClick={sidebar.toggleSidebar}
-            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            title={
-                isCollapsed ? 'Expand sidebar (⌘B)' : 'Collapse sidebar (⌘B)'
-            }
-            className="hidden size-9 shrink-0 place-items-center rounded-[10px] border border-border bg-card text-sidebar-primary shadow-xs transition-[color,background-color,box-shadow] outline-none hover:bg-accent hover:shadow-card focus-visible:ring-2 focus-visible:ring-sidebar-highlight md:grid dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
-        >
-            <Icon icon="solar:panel-left-line-duotone" className="size-5" />
-        </button>
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <button
+                    type="button"
+                    onClick={sidebar.toggleSidebar}
+                    aria-label={
+                        isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'
+                    }
+                    className="hidden shrink-0 place-items-center rounded-md text-muted-foreground transition-colors outline-none hover:text-sidebar-primary focus-visible:ring-2 focus-visible:ring-sidebar-highlight md:grid"
+                >
+                    <Icon
+                        icon="solar:panel-left-line-duotone"
+                        className="size-5"
+                    />
+                </button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+                {isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} (⌘B)
+            </TooltipContent>
+        </Tooltip>
     );
 }
 

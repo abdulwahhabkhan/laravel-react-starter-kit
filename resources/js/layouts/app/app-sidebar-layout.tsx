@@ -23,14 +23,14 @@ export default function AppSidebarLayout({
                 <div
                     key={url.split('?')[0]}
                     id="content"
-                    className="flex flex-1 animate-fade-up flex-col px-5 pt-5 pb-5 [animation-delay:100ms] md:px-[30px] md:pt-7"
+                    className="flex flex-1 animate-fade-up flex-col p-4 [animation-delay:100ms] md:p-6"
                 >
                     <ErrorBoundary>{children}</ErrorBoundary>
                 </div>
 
                 <footer
                     id="footer"
-                    className="flex animate-fade-up flex-wrap justify-between gap-2 border-t border-border px-5 py-4 text-xs text-muted-foreground [animation-delay:200ms] md:px-[30px]"
+                    className="flex animate-fade-up flex-wrap justify-between gap-2 border-t border-border px-4 py-3.5 text-xs text-muted-foreground [animation-delay:200ms] md:px-6"
                 >
                     <span>
                         &copy; {new Date().getFullYear()} {props.name}. All
