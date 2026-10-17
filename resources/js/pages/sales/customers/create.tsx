@@ -31,10 +31,7 @@ export default function CreateCustomer() {
                     }
                 />
                 <PageContent>
-                    <CustomerForm
-                        submitUrl={store.url()}
-                        method="post"
-                    />
+                    <CustomerForm submitUrl={store.url()} method="post" />
                 </PageContent>
             </div>
         </>
