@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react/offline';
 import { Link } from '@inertiajs/react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
     Collapsible,
     CollapsibleContent,
@@ -159,19 +159,34 @@ function NavParent({
     const { state, isMobile } = useSidebar();
     const hasActiveChild = item.items.some((child) => isCurrentUrl(child.href));
     const [isOpen, setIsOpen] = useState(hasActiveChild);
+    // Closing the flyout returns focus to its button, which would reopen the
+    // tooltip; keep it hidden until the pointer or focus moves on.
     const [isFlyoutOpen, setIsFlyoutOpen] = useState(false);
+    const [isTooltipSuppressed, setIsTooltipSuppressed] = useState(false);
+    const showTooltip = () => !isFlyoutOpen && setIsTooltipSuppressed(false);
+    const isClosingFromOutside = useRef(false);
 
     if (state === 'collapsed' && !isMobile) {
         return (
             <SidebarMenuItem>
-                <DropdownMenu onOpenChange={setIsFlyoutOpen}>
+                <DropdownMenu
+                    onOpenChange={(open) => {
+                        setIsFlyoutOpen(open);
+
+                        if (open) {
+                            setIsTooltipSuppressed(true);
+                        }
+                    }}
+                >
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton
                             isActive={hasActiveChild}
                             tooltip={{
                                 children: item.title,
-                                hidden: isFlyoutOpen,
+                                hidden: isTooltipSuppressed,
                             }}
+                            onPointerLeave={showTooltip}
+                            onBlur={showTooltip}
                             className={cn(
                                 menuButtonClassName,
                                 'data-[state=open]:[&>span]:bg-sidebar-tile-active data-[state=open]:[&>span]:text-sidebar-tile-active-foreground',
@@ -190,6 +205,17 @@ function NavParent({
                         side="right"
                         align="start"
                         sideOffset={14}
+                        onPointerDownOutside={() => {
+                            isClosingFromOutside.current = true;
+                        }}
+                        onCloseAutoFocus={(event) => {
+                            // The pointer is elsewhere, so don't pull focus (and the tooltip) back.
+                            if (isClosingFromOutside.current) {
+                                event.preventDefault();
+                                isClosingFromOutside.current = false;
+                                setIsTooltipSuppressed(false);
+                            }
+                        }}
                         className="min-w-[210px] rounded-xl p-1.5 shadow-[0_12px_28px_-10px_rgb(7_48_93/0.3)]"
                     >
                         <DropdownMenuLabel className="px-2.5 pt-2 pb-1.5 text-xs font-semibold text-sidebar-primary">
