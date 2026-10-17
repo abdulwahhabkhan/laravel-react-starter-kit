@@ -72,6 +72,27 @@ class Order extends BaseModel
     }
 
     /**
+     * Recalculate and persist the order totals from its line items.
+     *
+     * Subtotal is the gross value before discounts; tax is charged on each discounted line.
+     */
+    public function recalculateTotals(): void
+    {
+        $items = $this->items()->get(['quantity', 'unit_price', 'discount', 'tax_rate', 'line_total']);
+
+        $subtotal = $items->sum(fn (OrderItem $item): float => (float) $item->quantity * (float) $item->unit_price);
+        $discountTotal = $items->sum(fn (OrderItem $item): float => (float) $item->discount);
+        $taxTotal = $items->sum(fn (OrderItem $item): float => (float) $item->line_total * (float) $item->tax_rate / 100);
+
+        $this->update([
+            'subtotal' => round($subtotal, 2),
+            'discount_total' => round($discountTotal, 2),
+            'tax_total' => round($taxTotal, 2),
+            'total' => round($subtotal - $discountTotal + $taxTotal, 2),
+        ]);
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
