@@ -12,8 +12,8 @@ function bootProvidersIn(string $environment): void
 {
     app()->detectEnvironment(fn (): string => $environment);
 
-    (new AppServiceProvider(app()))->boot();
-    (new EssentialsServiceProvider(app()))->boot();
+    new AppServiceProvider(app())->boot();
+    new EssentialsServiceProvider(app())->boot();
 }
 
 test('production requires passwords of at least 12 characters', function (): void {
