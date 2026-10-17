@@ -1,7 +1,7 @@
 import { Form } from '@inertiajs/react';
-import { ShieldCheck } from 'lucide-react';
+import { Icon } from '@iconify/react/offline';
 import { useEffect, useRef, useState } from 'react';
-import Heading from '@/components/heading';
+import { DataSection } from '@/components/data-list';
 import TwoFactorRecoveryCodes from '@/components/two-factor-recovery-codes';
 import TwoFactorSetupModal from '@/components/two-factor-setup-modal';
 import { Button } from '@/components/ui/button';
@@ -45,12 +45,12 @@ export default function ManageTwoFactor(props: Props) {
     }
 
     return (
-        <div className="space-y-6">
-            <Heading
-                variant="small"
-                title="Two-factor authentication"
-                description="Manage your two-factor authentication settings"
-            />
+        <DataSection
+            icon="solar:smartphone-bold-duotone"
+            title="Two-Factor Authentication"
+            hint="Require a code from your authenticator app when signing in."
+            className="p-5"
+        >
             {twoFactorEnabled ? (
                 <div className="flex flex-col items-start justify-start space-y-4">
                     <p className="text-sm text-muted-foreground">
@@ -91,7 +91,7 @@ export default function ManageTwoFactor(props: Props) {
                     <div>
                         {hasSetupData ? (
                             <Button onClick={() => setShowSetupModal(true)}>
-                                <ShieldCheck />
+                                <Icon icon="solar:shield-check-bold-duotone" />
                                 Continue setup
                             </Button>
                         ) : (
@@ -121,6 +121,6 @@ export default function ManageTwoFactor(props: Props) {
                 fetchSetupData={fetchSetupData}
                 errors={errors}
             />
-        </div>
+        </DataSection>
     );
 }

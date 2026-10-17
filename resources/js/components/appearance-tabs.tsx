@@ -1,45 +1,83 @@
-import type { LucideIcon } from 'lucide-react';
-import { Monitor, Moon, Sun } from 'lucide-react';
-import type { HTMLAttributes } from 'react';
+import { Icon } from '@iconify/react/offline';
 import type { Appearance } from '@/hooks/use-appearance';
 import { useAppearance } from '@/hooks/use-appearance';
 import { cn } from '@/lib/utils';
 
-export default function AppearanceToggleTab({
-    className = '',
-    ...props
-}: HTMLAttributes<HTMLDivElement>) {
-    const { appearance, updateAppearance } = useAppearance();
+const options: {
+    value: Appearance;
+    icon: string;
+    label: string;
+    hint: string;
+}[] = [
+    {
+        value: 'light',
+        icon: 'solar:sun-2-bold-duotone',
+        label: 'Light',
+        hint: 'Bright surfaces for daytime work.',
+    },
+    {
+        value: 'dark',
+        icon: 'solar:moon-bold-duotone',
+        label: 'Dark',
+        hint: 'Easier on the eyes in low light.',
+    },
+    {
+        value: 'system',
+        icon: 'solar:monitor-bold-duotone',
+        label: 'System',
+        hint: 'Follow your device setting.',
+    },
+];
 
-    const tabs: { value: Appearance; icon: LucideIcon; label: string }[] = [
-        { value: 'light', icon: Sun, label: 'Light' },
-        { value: 'dark', icon: Moon, label: 'Dark' },
-        { value: 'system', icon: Monitor, label: 'System' },
-    ];
+/** Theme picker shown as selectable tiles. */
+export default function AppearanceTabs() {
+    const { appearance, updateAppearance } = useAppearance();
 
     return (
         <div
-            className={cn(
-                'inline-flex gap-1 rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800',
-                className,
-            )}
-            {...props}
+            role="radiogroup"
+            aria-label="Theme"
+            className="grid gap-3 sm:grid-cols-3"
         >
-            {tabs.map(({ value, icon: Icon, label }) => (
-                <button
-                    key={value}
-                    onClick={() => updateAppearance(value)}
-                    className={cn(
-                        'flex items-center rounded-md px-3.5 py-1.5 transition-colors',
-                        appearance === value
-                            ? 'bg-white shadow-xs dark:bg-neutral-700 dark:text-neutral-100'
-                            : 'text-neutral-500 hover:bg-neutral-200/60 hover:text-black dark:text-neutral-400 dark:hover:bg-neutral-700/60',
-                    )}
-                >
-                    <Icon className="-ml-1 h-4 w-4" />
-                    <span className="ml-1.5 text-sm">{label}</span>
-                </button>
-            ))}
+            {options.map(({ value, icon, label, hint }) => {
+                const isSelected = appearance === value;
+
+                return (
+                    <button
+                        key={value}
+                        type="button"
+                        role="radio"
+                        aria-checked={isSelected}
+                        onClick={() => updateAppearance(value)}
+                        className={cn(
+                            'relative flex flex-col items-start gap-2 rounded-lg border p-4 text-left transition-colors',
+                            isSelected
+                                ? 'border-sidebar-primary bg-sidebar-primary/5 ring-1 ring-sidebar-primary dark:border-foreground/60 dark:ring-foreground/60'
+                                : 'border-border hover:border-sidebar-primary/35 hover:bg-accent/60',
+                        )}
+                    >
+                        <Icon
+                            icon={icon}
+                            className={cn(
+                                'size-7',
+                                isSelected
+                                    ? 'text-sidebar-primary dark:text-foreground'
+                                    : 'text-muted-foreground',
+                            )}
+                        />
+                        <span className="text-sm font-semibold">{label}</span>
+                        <span className="text-xs text-muted-foreground">
+                            {hint}
+                        </span>
+                        {isSelected && (
+                            <Icon
+                                icon="solar:check-circle-bold-duotone"
+                                className="absolute top-3 right-3 size-5 text-sidebar-primary dark:text-foreground"
+                            />
+                        )}
+                    </button>
+                );
+            })}
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import { KeyRound, Trash2 } from 'lucide-react';
+import { Icon } from '@iconify/react/offline';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,6 +10,11 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from '@/components/ui/tooltip';
 import type { Passkey } from '@/types/auth';
 
 type Props = {
@@ -28,8 +33,11 @@ export default function PasskeyItem({ passkey, onDelete }: Props) {
     return (
         <div className="flex items-center justify-between border-b p-4 last:border-b-0">
             <div className="flex items-center gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-muted">
-                    <KeyRound className="h-5 w-5 text-muted-foreground" />
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
+                    <Icon
+                        icon="solar:key-minimalistic-bold-duotone"
+                        className="size-5 text-sidebar-primary dark:text-foreground"
+                    />
                 </div>
                 <div className="space-y-1">
                     <div className="flex items-center gap-2.5">
@@ -57,16 +65,23 @@ export default function PasskeyItem({ passkey, onDelete }: Props) {
             </div>
 
             <Dialog>
-                <DialogTrigger asChild>
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-destructive hover:bg-destructive/10 hover:text-destructive"
-                    >
-                        <Trash2 className="h-4 w-4" />
-                        <span className="sr-only">Remove</span>
-                    </Button>
-                </DialogTrigger>
+                <Tooltip>
+                    <DialogTrigger asChild>
+                        <TooltipTrigger asChild>
+                            <button
+                                type="button"
+                                aria-label="Remove passkey"
+                                className="text-tone-red transition-opacity hover:opacity-75"
+                            >
+                                <Icon
+                                    icon="solar:trash-bin-trash-bold-duotone"
+                                    className="size-5"
+                                />
+                            </button>
+                        </TooltipTrigger>
+                    </DialogTrigger>
+                    <TooltipContent>Remove passkey</TooltipContent>
+                </Tooltip>
                 <DialogContent>
                     <DialogTitle>Remove passkey</DialogTitle>
                     <DialogDescription>

@@ -1,6 +1,6 @@
 import { Head } from '@inertiajs/react';
 import AppearanceTabs from '@/components/appearance-tabs';
-import Heading from '@/components/heading';
+import { DataSection } from '@/components/data-list';
 import { edit as editAppearance } from '@/routes/appearance';
 
 export default function Appearance() {
@@ -10,13 +10,15 @@ export default function Appearance() {
 
             <h1 className="sr-only">Appearance settings</h1>
 
-            <div className="space-y-6">
-                <Heading
-                    variant="small"
-                    title="Appearance settings"
-                    description="Update the appearance settings for your account"
-                />
-                <AppearanceTabs />
+            <div className="xl:w-2/3">
+                <DataSection
+                    icon="solar:pallete-2-bold-duotone"
+                    title="Theme"
+                    hint="Saved in this browser."
+                    className="p-5"
+                >
+                    <AppearanceTabs />
+                </DataSection>
             </div>
         </>
     );

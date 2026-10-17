@@ -121,7 +121,7 @@ function MegaMenu({
                     prefetch
                     className="group/feature relative flex flex-col justify-end gap-1.5 overflow-hidden rounded-lg bg-linear-160 from-[#04203f] via-[#07305d] to-[#0d4a8a] p-4 text-white hover:bg-transparent hover:text-white focus:bg-transparent focus:text-white"
                 >
-                    <span className="absolute inset-0 fabric-weave [--weave-gap:7px]" />
+                    <span className="absolute inset-0 fabric-weave [--weave-size:16px]" />
                     <span className="absolute inset-1.5 rounded-md border border-dashed border-sidebar-highlight/45 transition-colors group-hover/feature:border-sidebar-highlight/80" />
                     <span className="relative mb-auto grid size-10 place-items-center rounded-lg bg-white/10 ring-1 ring-white/15">
                         <Icon
