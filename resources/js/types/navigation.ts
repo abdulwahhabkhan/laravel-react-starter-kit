@@ -10,6 +10,8 @@ export type NavItem = {
     href: NonNullable<InertiaLinkProps['href']>;
     /** Iconify icon name, e.g. `solar:widget-5-bold-duotone`. */
     icon?: string | null;
+    /** One-line summary shown under the title in the top bar menus. */
+    description?: string;
     isActive?: boolean;
 };
 

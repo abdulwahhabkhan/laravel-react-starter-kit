@@ -23,7 +23,7 @@ import {
 import { dashboard } from '@/routes';
 import type { NavEntry, NavItem } from '@/types';
 
-const mainNavItems: NavItem[] = [
+export const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),

@@ -1,17 +1,17 @@
-import { Icon } from "@iconify/react/offline";
-import { Head, Link, router, setLayoutProps } from "@inertiajs/react";
-import { useEffect, useRef, useState } from "react";
-import { useConfirm } from "@/components/confirm-dialog";
-import { FilterSelect, filterFieldClassName } from "@/components/filter-field";
-import { NewOrderDialog } from "@/components/orders/new-order-dialog";
+import { Icon } from '@iconify/react/offline';
+import { Head, Link, router, setLayoutProps } from '@inertiajs/react';
+import { useEffect, useRef, useState } from 'react';
+import { useConfirm } from '@/components/confirm-dialog';
+import { FilterSelect, filterFieldClassName } from '@/components/filter-field';
+import { NewOrderDialog } from '@/components/orders/new-order-dialog';
 import {
     Money,
     OrderStatusBadge,
     Pagination,
     formatDate,
     orderStatusStyles,
-} from "@/components/orders/order-ui";
-import { PageContent, PageFilters, PageHeader } from "@/components/page";
+} from '@/components/orders/order-ui';
+import { PageContent, PageFilters, PageHeader } from '@/components/page';
 import {
     RowActions,
     RowMenu,
@@ -19,28 +19,28 @@ import {
     actionIcons,
     pinnedActionsCellClass,
     pinnedActionsHeadClass,
-} from "@/components/row-actions";
-import { StatusFilter } from "@/components/status-filter";
-import { Button } from "@/components/ui/button";
-import { useOverflowEnd } from "@/hooks/use-overflow-end";
-import { cn } from "@/lib/utils";
-import { dashboard } from "@/routes";
-import { destroy, edit, index, show } from "@/routes/orders";
+} from '@/components/row-actions';
+import { StatusFilter } from '@/components/status-filter';
+import { Button } from '@/components/ui/button';
+import { useOverflowEnd } from '@/hooks/use-overflow-end';
+import { cn } from '@/lib/utils';
+import { dashboard } from '@/routes';
+import { destroy, edit, index, show } from '@/routes/orders';
 import type {
     CustomerOption,
     FilterOption,
     OrderListItem,
     OrderStatus,
     Paginated,
-} from "@/types";
+} from '@/types';
 
 /** Columns that collapse to their content width. */
-const shrink = "w-1 whitespace-nowrap";
+const shrink = 'w-1 whitespace-nowrap';
 
 type Filters = {
     search: string;
     status: string;
-    customer: number | "";
+    customer: number | '';
     from: string;
     to: string;
 };
@@ -72,8 +72,8 @@ function DateField({
                 aria-label={`Order date ${label.toLowerCase()}`}
                 className={cn(
                     filterFieldClassName,
-                    "pl-11 [&::-webkit-calendar-picker-indicator]:opacity-50",
-                    value === "" && "text-muted-foreground",
+                    'pl-11 [&::-webkit-calendar-picker-indicator]:opacity-50',
+                    value === '' && 'text-muted-foreground',
                 )}
             />
         </label>
@@ -102,8 +102,8 @@ export default function OrdersIndex({
 
     setLayoutProps({
         breadcrumbs: [
-            { title: "Dashboard", href: dashboard() },
-            { title: "Orders", href: index() },
+            { title: 'Dashboard', href: dashboard() },
+            { title: 'Orders', href: index() },
         ],
     });
 
@@ -142,18 +142,18 @@ export default function OrdersIndex({
 
     const deleteOrder = (order: OrderListItem) =>
         confirm({
-            tone: "danger",
+            tone: 'danger',
             title: `Delete ${order.order_number}?`,
             description: (
                 <>
-                    The order for{" "}
+                    The order for{' '}
                     <span className="font-semibold text-foreground">
                         {order.customer.name}
-                    </span>{" "}
+                    </span>{' '}
                     and all of its items will be permanently removed.
                 </>
             ),
-            confirmLabel: "Delete order",
+            confirmLabel: 'Delete order',
             onConfirm: () =>
                 new Promise((resolve) =>
                     router.delete(destroy.url(order.id), {
@@ -164,13 +164,13 @@ export default function OrdersIndex({
         });
 
     const hasFilters =
-        filters.search !== "" ||
-        filters.customer !== "" ||
-        filters.from !== "" ||
-        filters.to !== "";
+        filters.search !== '' ||
+        filters.customer !== '' ||
+        filters.from !== '' ||
+        filters.to !== '';
     const clearFilters = () => {
-        setSearch("");
-        applyFilters({ search: "", customer: "", from: "", to: "" });
+        setSearch('');
+        applyFilters({ search: '', customer: '', from: '', to: '' });
     };
 
     return (
@@ -180,7 +180,7 @@ export default function OrdersIndex({
                 <PageHeader
                     title="Orders"
                     icon="solar:cart-large-4-bold-duotone"
-                    description={`${orders.total} ${orders.total === 1 ? "order" : "orders"}`}
+                    description={`${orders.total} ${orders.total === 1 ? 'order' : 'orders'}`}
                     actions={
                         <>
                             <StatusFilter
@@ -231,7 +231,7 @@ export default function OrdersIndex({
                             aria-label="Search orders"
                             className={cn(
                                 filterFieldClassName,
-                                "pl-9 lg:rounded-l-md",
+                                'pl-9 lg:rounded-l-md',
                             )}
                         />
                     </div>
@@ -241,7 +241,7 @@ export default function OrdersIndex({
                             applyFilters({
                                 customer: event.target.value
                                     ? Number(event.target.value)
-                                    : "",
+                                    : '',
                             })
                         }
                         aria-label="Filter by customer"
@@ -272,7 +272,7 @@ export default function OrdersIndex({
                         disabled={!hasFilters}
                         className={cn(
                             filterFieldClassName,
-                            "col-span-2 flex w-auto cursor-pointer items-center justify-center gap-1.5 text-muted-foreground hover:text-tone-red disabled:cursor-default disabled:opacity-50 disabled:hover:text-muted-foreground lg:-ml-px lg:rounded-r-md",
+                            'col-span-2 flex w-auto cursor-pointer items-center justify-center gap-1.5 text-muted-foreground hover:text-tone-red disabled:cursor-default disabled:opacity-50 disabled:hover:text-muted-foreground lg:-ml-px lg:rounded-r-md',
                         )}
                     >
                         <Icon
@@ -291,14 +291,14 @@ export default function OrdersIndex({
                             className="group/table relative max-xl:max-h-[calc(100dvh-13rem)] max-xl:overflow-auto"
                         >
                             <table className="w-full animate-table text-xs leading-[18px] [&_td]:px-3 [&_td]:py-2.5 [&_td:first-child]:pl-5 [&_td:last-child]:pr-5 [&_th]:h-11 [&_th]:px-3 [&_th]:text-[13px] [&_th:first-child]:pl-5 [&_th:last-child]:pr-5">
-                                <thead className="sticky top-0 z-20 bg-card shadow-[inset_0_-1px_0_var(--border)]">
+                                <thead className="sticky top-0 z-20 bg-card shadow-[inset_0_-1px_0_var(--border)] xl:top-[var(--app-header-height,0px)]">
                                     <tr className="text-left font-bold">
                                         <th className={shrink}>Order</th>
                                         <th>Customer</th>
                                         <th className={shrink}>Order date</th>
                                         <th className={shrink}>Delivery</th>
                                         <th
-                                            className={cn(shrink, "text-right")}
+                                            className={cn(shrink, 'text-right')}
                                         >
                                             Total
                                         </th>
@@ -325,7 +325,7 @@ export default function OrdersIndex({
                                                 <Link
                                                     href={show(order.id)}
                                                     prefetch
-                                                    className="text-[12.5px] font-semibold text-sidebar-primary font-numeric hover:underline"
+                                                    className="font-numeric text-[12.5px] font-semibold text-sidebar-primary hover:underline"
                                                 >
                                                     {order.order_number}
                                                 </Link>
@@ -343,7 +343,7 @@ export default function OrdersIndex({
                                             <td
                                                 className={cn(
                                                     shrink,
-                                                    "text-muted-foreground",
+                                                    'text-muted-foreground',
                                                 )}
                                             >
                                                 {formatDate(order.order_date)}
@@ -351,7 +351,7 @@ export default function OrdersIndex({
                                             <td
                                                 className={cn(
                                                     shrink,
-                                                    "text-muted-foreground",
+                                                    'text-muted-foreground',
                                                 )}
                                             >
                                                 {formatDate(
@@ -361,7 +361,7 @@ export default function OrdersIndex({
                                             <td
                                                 className={cn(
                                                     shrink,
-                                                    "text-right",
+                                                    'text-right',
                                                 )}
                                             >
                                                 <Money
@@ -389,14 +389,14 @@ export default function OrdersIndex({
                                                     <RowMenu
                                                         items={[
                                                             {
-                                                                label: "Edit order",
+                                                                label: 'Edit order',
                                                                 icon: actionIcons.edit,
                                                                 href: edit(
                                                                     order.id,
                                                                 ),
                                                             },
                                                             {
-                                                                label: "Print order",
+                                                                label: 'Print order',
                                                                 icon: actionIcons.print,
                                                                 href: show(
                                                                     order.id,
@@ -409,10 +409,10 @@ export default function OrdersIndex({
                                                                 external: true,
                                                             },
                                                             {
-                                                                label: "Delete order",
+                                                                label: 'Delete order',
                                                                 icon: actionIcons.delete,
                                                                 variant:
-                                                                    "danger",
+                                                                    'danger',
                                                                 onSelect: () =>
                                                                     deleteOrder(
                                                                         order,
@@ -437,14 +437,14 @@ export default function OrdersIndex({
                                                     <p className="text-sm font-semibold">
                                                         {hasFilters ||
                                                         filters.status
-                                                            ? "No orders match these filters"
-                                                            : "No orders yet"}
+                                                            ? 'No orders match these filters'
+                                                            : 'No orders yet'}
                                                     </p>
                                                     <p className="text-xs text-muted-foreground">
                                                         {hasFilters ||
                                                         filters.status
-                                                            ? "Try a different search, status or date range."
-                                                            : "Start your first order by choosing a customer."}
+                                                            ? 'Try a different search, status or date range.'
+                                                            : 'Start your first order by choosing a customer.'}
                                                     </p>
                                                     {hasFilters ||
                                                     filters.status ? (
@@ -453,14 +453,14 @@ export default function OrdersIndex({
                                                             size="xs"
                                                             className="mt-1"
                                                             onClick={() => {
-                                                                setSearch("");
+                                                                setSearch('');
                                                                 applyFilters({
-                                                                    search: "",
-                                                                    status: "",
+                                                                    search: '',
+                                                                    status: '',
                                                                     customer:
-                                                                        "",
-                                                                    from: "",
-                                                                    to: "",
+                                                                        '',
+                                                                    from: '',
+                                                                    to: '',
                                                                 });
                                                             }}
                                                         >

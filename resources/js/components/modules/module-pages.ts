@@ -1146,6 +1146,8 @@ export const moduleNavItems: NavParentItem[] = modules.map((module) => ({
     icon: module.icon,
     items: module.pages.map((page) => ({
         title: page.title,
+        icon: page.stats[0]?.icon,
+        description: page.description,
         href: show([module.slug, page.slug]),
     })),
 }));
