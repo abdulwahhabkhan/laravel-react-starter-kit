@@ -26,7 +26,7 @@ An opinionated Laravel starter kit with React, Inertia, and TypeScript, preconfi
 With the Laravel installer:
 
 ```bash
-laravel new my-app --using=abdulwahhabkhan/laravel-react-starter-kit --bun --react --git --pest --prefer-dist
+laravel new my-app --using=abdulwahhabkhan/laravel-react-starter-kit --bun --react --git --pest
 ```
 
 With Composer:
