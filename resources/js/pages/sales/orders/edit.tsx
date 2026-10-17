@@ -1,10 +1,10 @@
-import { Icon } from "@iconify/react/offline";
-import { Head, Link, router, setLayoutProps, useForm } from "@inertiajs/react";
-import { useState } from "react";
-import type { FormEvent, ReactNode } from "react";
-import { useConfirm } from "@/components/confirm-dialog";
-import InputError from "@/components/input-error";
-import { OrderItemDrawer } from "@/components/orders/order-item-drawer";
+import { Icon } from '@iconify/react/offline';
+import { Head, Link, router, setLayoutProps, useForm } from '@inertiajs/react';
+import { useState } from 'react';
+import type { FormEvent, ReactNode } from 'react';
+import { useConfirm } from '@/components/confirm-dialog';
+import InputError from '@/components/input-error';
+import { OrderItemDrawer } from '@/components/orders/order-item-drawer';
 import {
     Money,
     OrderCard,
@@ -12,22 +12,22 @@ import {
     formatDate,
     formatQuantity,
     toNumber,
-} from "@/components/orders/order-ui";
-import { PageContent, PageHeader } from "@/components/page";
+} from '@/components/orders/order-ui';
+import { PageContent, PageHeader } from '@/components/page';
 import {
     DeleteAction,
     EditAction,
     PrintAction,
     ViewAction,
-} from "@/components/row-actions";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Spinner } from "@/components/ui/spinner";
-import { cn } from "@/lib/utils";
-import { dashboard } from "@/routes";
-import { destroy, edit, index, show, update } from "@/routes/orders";
-import { destroy as destroyItem } from "@/routes/orders/items";
+} from '@/components/row-actions';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Spinner } from '@/components/ui/spinner';
+import { cn } from '@/lib/utils';
+import { dashboard } from '@/routes';
+import { destroy, edit, index, show, update } from '@/routes/orders';
+import { destroy as destroyItem } from '@/routes/orders/items';
 import type {
     CustomerOption,
     FilterOption,
@@ -35,7 +35,7 @@ import type {
     OrderLine,
     ProductOption,
     UomOption,
-} from "@/types";
+} from '@/types';
 
 type DetailsFormData = {
     account_id: number;
@@ -46,7 +46,7 @@ type DetailsFormData = {
 };
 
 const fieldClassName =
-    "h-9 w-full rounded-md border border-input bg-card px-3 text-sm shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive";
+    'h-9 w-full rounded-md border border-input bg-card px-3 text-sm shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive';
 
 function Field({
     id,
@@ -64,7 +64,7 @@ function Field({
     children: ReactNode;
 }) {
     return (
-        <div className={cn("grid content-start gap-1.5", className)}>
+        <div className={cn('grid content-start gap-1.5', className)}>
             <Label htmlFor={id} className="text-xs font-semibold">
                 {label}
                 {hint && (
@@ -92,8 +92,8 @@ function OrderDetailsForm({
         account_id: order.customer.id,
         status: order.status,
         order_date: order.order_date,
-        delivery_date: order.delivery_date ?? "",
-        notes: order.notes ?? "",
+        delivery_date: order.delivery_date ?? '',
+        notes: order.notes ?? '',
     });
     const { data, setData, errors, processing, isDirty } = form;
 
@@ -124,7 +124,7 @@ function OrderDetailsForm({
                             value={data.account_id}
                             onChange={(event) =>
                                 setData(
-                                    "account_id",
+                                    'account_id',
                                     Number(event.target.value),
                                 )
                             }
@@ -134,7 +134,7 @@ function OrderDetailsForm({
                             {customers.map((customer) => (
                                 <option key={customer.id} value={customer.id}>
                                     {customer.name}
-                                    {customer.city ? ` — ${customer.city}` : ""}
+                                    {customer.city ? ` — ${customer.city}` : ''}
                                 </option>
                             ))}
                         </select>
@@ -157,12 +157,12 @@ function OrderDetailsForm({
                                     role="radio"
                                     aria-checked={data.status === option.value}
                                     onClick={() =>
-                                        setData("status", option.value)
+                                        setData('status', option.value)
                                     }
                                     className={cn(
-                                        "rounded px-2 py-1 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground",
+                                        'rounded px-2 py-1 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground',
                                         data.status === option.value &&
-                                            "bg-card text-sidebar-primary shadow-xs",
+                                            'bg-card text-sidebar-primary shadow-xs',
                                     )}
                                 >
                                     {option.label}
@@ -180,7 +180,7 @@ function OrderDetailsForm({
                             type="date"
                             value={data.order_date}
                             onChange={(event) =>
-                                setData("order_date", event.target.value)
+                                setData('order_date', event.target.value)
                             }
                             aria-invalid={!!errors.order_date}
                             className="bg-card"
@@ -198,7 +198,7 @@ function OrderDetailsForm({
                             min={data.order_date}
                             value={data.delivery_date}
                             onChange={(event) =>
-                                setData("delivery_date", event.target.value)
+                                setData('delivery_date', event.target.value)
                             }
                             aria-invalid={!!errors.delivery_date}
                             className="bg-card"
@@ -217,11 +217,11 @@ function OrderDetailsForm({
                             value={data.notes}
                             placeholder="Delivery instructions, references..."
                             onChange={(event) =>
-                                setData("notes", event.target.value)
+                                setData('notes', event.target.value)
                             }
                             className={cn(
                                 fieldClassName,
-                                "h-auto min-h-9 resize-y py-1.5",
+                                'h-auto min-h-9 resize-y py-1.5',
                             )}
                         />
                     </Field>
@@ -229,8 +229,8 @@ function OrderDetailsForm({
                 <div className="flex items-center justify-end gap-3 border-t border-border px-5 py-3">
                     <p
                         className={cn(
-                            "mr-auto flex items-center gap-1.5 text-xs text-muted-foreground transition-opacity",
-                            !isDirty && "opacity-0",
+                            'mr-auto flex items-center gap-1.5 text-xs text-muted-foreground transition-opacity',
+                            !isDirty && 'opacity-0',
                         )}
                         aria-live="polite"
                     >
@@ -287,8 +287,8 @@ function LineItems({
                 !canEdit
                     ? `Items are locked while the order is ${order.status_label.toLowerCase()}.`
                     : order.items.length > 0
-                      ? "Click a line to edit it. Totals update automatically."
-                      : "Products, quantities and prices for this order."
+                      ? 'Click a line to edit it. Totals update automatically.'
+                      : 'Products, quantities and prices for this order.'
             }
             actions={
                 canEdit &&
@@ -360,12 +360,12 @@ function LineItems({
                                     key={item.id}
                                     onClick={() => canEdit && onEdit(item)}
                                     className={cn(
-                                        "border-b border-border/70 transition-colors last:border-0",
+                                        'border-b border-border/70 transition-colors last:border-0',
                                         canEdit &&
-                                            "cursor-pointer hover:bg-accent/50",
+                                            'cursor-pointer hover:bg-accent/50',
                                     )}
                                 >
-                                    <td className="text-muted-foreground font-numeric">
+                                    <td className="font-numeric text-muted-foreground">
                                         {position + 1}
                                     </td>
                                     <td className="max-w-[260px]">
@@ -379,7 +379,7 @@ function LineItems({
                                     <td className="text-right font-numeric">
                                         <span className="font-semibold">
                                             {formatQuantity(item.quantity)}
-                                        </span>{" "}
+                                        </span>{' '}
                                         <span className="text-muted-foreground">
                                             {item.uom_label}
                                         </span>
@@ -390,7 +390,7 @@ function LineItems({
                                     <td className="text-right">
                                         {toNumber(item.discount) > 0 ? (
                                             <span className="text-tone-red">
-                                                −{" "}
+                                                −{' '}
                                                 <Money value={item.discount} />
                                             </span>
                                         ) : (
@@ -484,11 +484,11 @@ function OrderSummary({ order }: { order: Order }) {
                 <span className="text-xs font-semibold tracking-wide uppercase opacity-80">
                     Total
                 </span>
-                <span className="text-2xl font-bold tracking-tight font-numeric">
+                <span className="font-numeric text-2xl font-bold tracking-tight">
                     <span className="mr-1 text-xs font-semibold text-sidebar-highlight">
                         Rs
                     </span>
-                    {new Intl.NumberFormat("en-US", {
+                    {new Intl.NumberFormat('en-US', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                     }).format(toNumber(order.total))}
@@ -502,11 +502,11 @@ function CustomerCard({ order }: { order: Order }) {
     const { customer } = order;
     const address = [customer.address_line_1, customer.city, customer.region]
         .filter(Boolean)
-        .join(", ");
+        .join(', ');
     const rows = [
-        { icon: "solar:phone-bold-duotone", value: customer.phone },
-        { icon: "solar:letter-bold-duotone", value: customer.email },
-        { icon: "solar:map-point-bold-duotone", value: address },
+        { icon: 'solar:phone-bold-duotone', value: customer.phone },
+        { icon: 'solar:letter-bold-duotone', value: customer.email },
+        { icon: 'solar:map-point-bold-duotone', value: address },
     ].filter((row) => row.value);
 
     return (
@@ -537,7 +537,7 @@ function CustomerCard({ order }: { order: Order }) {
             <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-border pt-4 text-xs">
                 <div>
                     <dt className="text-muted-foreground">Created by</dt>
-                    <dd className="font-medium">{order.created_by ?? "—"}</dd>
+                    <dd className="font-medium">{order.created_by ?? '—'}</dd>
                 </div>
                 <div>
                     <dt className="text-muted-foreground">Last updated</dt>
@@ -569,8 +569,8 @@ export default function EditOrder({
 
     setLayoutProps({
         breadcrumbs: [
-            { title: "Dashboard", href: dashboard() },
-            { title: "Orders", href: index() },
+            { title: 'Dashboard', href: dashboard() },
+            { title: 'Orders', href: index() },
             { title: order.order_number, href: edit(order.id) },
         ],
     });
@@ -582,17 +582,17 @@ export default function EditOrder({
 
     const deleteItem = (item: OrderLine) =>
         confirm({
-            tone: "danger",
-            title: "Remove this item?",
+            tone: 'danger',
+            title: 'Remove this item?',
             description: (
                 <>
                     <span className="font-semibold text-foreground">
                         {item.description}
-                    </span>{" "}
+                    </span>{' '}
                     will be removed and the order totals recalculated.
                 </>
             ),
-            confirmLabel: "Remove item",
+            confirmLabel: 'Remove item',
             onConfirm: () =>
                 new Promise((resolve) =>
                     router.delete(
@@ -604,11 +604,11 @@ export default function EditOrder({
 
     const deleteOrder = () =>
         confirm({
-            tone: "danger",
+            tone: 'danger',
             title: `Delete ${order.order_number}?`,
             description:
-                "The order and all of its items will be permanently removed.",
-            confirmLabel: "Delete order",
+                'The order and all of its items will be permanently removed.',
+            confirmLabel: 'Delete order',
             onConfirm: () =>
                 new Promise((resolve) =>
                     router.delete(destroy.url(order.id), { onFinish: resolve }),

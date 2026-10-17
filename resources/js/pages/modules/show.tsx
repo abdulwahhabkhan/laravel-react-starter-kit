@@ -1,18 +1,18 @@
-import { Icon } from "@iconify/react/offline";
-import { Head, setLayoutProps } from "@inertiajs/react";
+import { Icon } from '@iconify/react/offline';
+import { Head, setLayoutProps } from '@inertiajs/react';
 import type {
     ModuleColumn,
     ModuleStat,
-} from "@/components/modules/module-pages";
-import { findModulePage } from "@/components/modules/module-pages";
-import { StatusBadge } from "@/components/modules/status-badge";
-import { Panel } from "@/components/dashboard/panel";
-import { PageContent, PageHeader } from "@/components/page";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { dashboard } from "@/routes";
-import { show } from "@/routes/modules";
-import type { BreadcrumbItem } from "@/types";
+} from '@/components/modules/module-pages';
+import { findModulePage } from '@/components/modules/module-pages';
+import { StatusBadge } from '@/components/modules/status-badge';
+import { Panel } from '@/components/dashboard/panel';
+import { PageContent, PageHeader } from '@/components/page';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { dashboard } from '@/routes';
+import { show } from '@/routes/modules';
+import type { BreadcrumbItem } from '@/types';
 
 function ModuleStatCard({ stat }: { stat: ModuleStat }) {
     return (
@@ -24,7 +24,7 @@ function ModuleStatCard({ stat }: { stat: ModuleStat }) {
                 <p className="text-xs font-medium text-muted-foreground">
                     {stat.label}
                 </p>
-                <p className="mt-0.5 text-xl font-semibold tracking-tight font-numeric">
+                <p className="mt-0.5 font-numeric text-xl font-semibold tracking-tight">
                     {stat.value}
                 </p>
                 <p className="mt-0.5 text-[11px] text-muted-foreground">
@@ -43,28 +43,28 @@ function ModuleCell({
     value: string;
 }) {
     switch (column.kind) {
-        case "primary":
+        case 'primary':
             return (
                 <span className="font-semibold text-sidebar-primary">
                     {value}
                 </span>
             );
-        case "mono":
+        case 'mono':
             return (
                 <span className="font-mono text-xs text-muted-foreground">
                     {value}
                 </span>
             );
-        case "amount":
+        case 'amount':
             return (
-                <span className="font-semibold font-numeric">
+                <span className="font-numeric font-semibold">
                     <span className="mr-1 text-xs font-normal text-muted-foreground">
                         Rs
                     </span>
                     {value}
                 </span>
             );
-        case "status":
+        case 'status':
             return <StatusBadge status={value} />;
         default:
             return <span className="font-numeric">{value}</span>;
@@ -81,7 +81,7 @@ export default function ModuleShow({
     const match = findModulePage(moduleSlug, pageSlug);
 
     const breadcrumbs: BreadcrumbItem[] = [
-        { title: "Dashboard", href: dashboard() },
+        { title: 'Dashboard', href: dashboard() },
         ...(match
             ? [
                   {
@@ -139,9 +139,9 @@ export default function ModuleShow({
                                             <th
                                                 key={column.label}
                                                 className={cn(
-                                                    "px-3 py-2 font-medium first:pl-5 last:pr-5",
-                                                    column.align === "right" &&
-                                                        "text-right",
+                                                    'px-3 py-2 font-medium first:pl-5 last:pr-5',
+                                                    column.align === 'right' &&
+                                                        'text-right',
                                                 )}
                                             >
                                                 {column.label}
@@ -160,10 +160,10 @@ export default function ModuleShow({
                                                     <td
                                                         key={column.label}
                                                         className={cn(
-                                                            "px-3 py-2.5 first:pl-5 last:pr-5",
+                                                            'px-3 py-2.5 first:pl-5 last:pr-5',
                                                             column.align ===
-                                                                "right" &&
-                                                                "text-right",
+                                                                'right' &&
+                                                                'text-right',
                                                         )}
                                                     >
                                                         <ModuleCell

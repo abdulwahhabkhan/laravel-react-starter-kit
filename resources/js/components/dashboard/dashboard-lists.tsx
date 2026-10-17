@@ -1,34 +1,34 @@
-import { Icon } from "@iconify/react/offline";
+import { Icon } from '@iconify/react/offline';
 import type {
     LowStockItem,
     OrderStatus,
     RecentOrder,
     TopProduct,
-} from "@/components/dashboard/dashboard-data";
+} from '@/components/dashboard/dashboard-data';
 import {
     formatCompactRupees,
     formatRupees,
-} from "@/components/dashboard/panel";
-import { cn } from "@/lib/utils";
+} from '@/components/dashboard/panel';
+import { cn } from '@/lib/utils';
 
 const orderStatusStyles: Record<
     OrderStatus,
     { label: string; icon: string; className: string }
 > = {
     paid: {
-        label: "Paid",
-        icon: "solar:check-circle-bold",
-        className: "bg-emerald-600/10 text-emerald-700 dark:text-emerald-400",
+        label: 'Paid',
+        icon: 'solar:check-circle-bold',
+        className: 'bg-emerald-600/10 text-emerald-700 dark:text-emerald-400',
     },
     pending: {
-        label: "Pending",
-        icon: "solar:clock-circle-bold",
-        className: "bg-amber-500/15 text-amber-800 dark:text-amber-300",
+        label: 'Pending',
+        icon: 'solar:clock-circle-bold',
+        className: 'bg-amber-500/15 text-amber-800 dark:text-amber-300',
     },
     overdue: {
-        label: "Overdue",
-        icon: "solar:danger-circle-bold",
-        className: "bg-rose-600/10 text-rose-700 dark:text-rose-400",
+        label: 'Overdue',
+        icon: 'solar:danger-circle-bold',
+        className: 'bg-rose-600/10 text-rose-700 dark:text-rose-400',
     },
 };
 
@@ -38,7 +38,7 @@ function OrderStatusBadge({ status }: { status: OrderStatus }) {
     return (
         <span
             className={cn(
-                "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold",
+                'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold',
                 style.className,
             )}
         >
@@ -85,7 +85,7 @@ export function RecentOrdersTable({ orders }: { orders: RecentOrder[] }) {
                             <td className="px-3 py-2.5 text-right font-numeric">
                                 {order.items}
                             </td>
-                            <td className="px-3 py-2.5 text-right font-semibold font-numeric">
+                            <td className="px-3 py-2.5 text-right font-numeric font-semibold">
                                 <span className="mr-1 text-xs font-normal text-muted-foreground">
                                     Rs
                                 </span>
@@ -112,10 +112,10 @@ export function TopProductsList({ products }: { products: TopProduct[] }) {
                 >
                     <span
                         className={cn(
-                            "grid size-7 shrink-0 place-items-center rounded-full text-xs font-bold font-numeric",
+                            'grid size-7 shrink-0 place-items-center rounded-full font-numeric text-xs font-bold',
                             index === 0
-                                ? "bg-sidebar-highlight/20 text-[#8a5a1f] dark:text-sidebar-highlight"
-                                : "bg-muted-foreground/10 text-muted-foreground",
+                                ? 'bg-sidebar-highlight/20 text-[#8a5a1f] dark:text-sidebar-highlight'
+                                : 'bg-muted-foreground/10 text-muted-foreground',
                         )}
                     >
                         {index + 1}
@@ -129,10 +129,10 @@ export function TopProductsList({ products }: { products: TopProduct[] }) {
                         </p>
                     </div>
                     <div className="text-right">
-                        <p className="text-[13px] font-semibold font-numeric">
+                        <p className="font-numeric text-[13px] font-semibold">
                             Rs {formatCompactRupees(product.revenue)}
                         </p>
-                        <p className="text-[11px] text-muted-foreground font-numeric">
+                        <p className="font-numeric text-[11px] text-muted-foreground">
                             {formatRupees(product.unitsSold)} sold
                         </p>
                     </div>
@@ -158,25 +158,25 @@ export function LowStockList({ items }: { items: LowStockItem[] }) {
                             <span className="truncate text-[13px] font-medium">
                                 {item.name}
                             </span>
-                            <span className="shrink-0 text-xs text-muted-foreground font-numeric">
+                            <span className="shrink-0 font-numeric text-xs text-muted-foreground">
                                 <span
                                     className={cn(
-                                        "font-semibold",
+                                        'font-semibold',
                                         isCritical
-                                            ? "text-rose-700 dark:text-rose-400"
-                                            : "text-amber-800 dark:text-amber-300",
+                                            ? 'text-rose-700 dark:text-rose-400'
+                                            : 'text-amber-800 dark:text-amber-300',
                                     )}
                                 >
                                     {formatRupees(item.onHand)}
-                                </span>{" "}
+                                </span>{' '}
                                 / {formatRupees(item.reorderLevel)} {item.uom}
                             </span>
                         </div>
                         <div className="h-1.5 overflow-hidden rounded-full bg-muted-foreground/10">
                             <div
                                 className={cn(
-                                    "h-full rounded-full",
-                                    isCritical ? "bg-rose-500" : "bg-amber-500",
+                                    'h-full rounded-full',
+                                    isCritical ? 'bg-rose-500' : 'bg-amber-500',
                                 )}
                                 style={{ width: `${fill}%` }}
                             />
@@ -190,24 +190,24 @@ export function LowStockList({ items }: { items: LowStockItem[] }) {
 
 const quickActions = [
     {
-        title: "New sale order",
-        caption: "Invoice a customer",
-        icon: "solar:cart-plus-bold-duotone",
+        title: 'New sale order',
+        caption: 'Invoice a customer',
+        icon: 'solar:cart-plus-bold-duotone',
     },
     {
-        title: "New purchase",
-        caption: "Record supplier stock",
-        icon: "solar:box-minimalistic-bold-duotone",
+        title: 'New purchase',
+        caption: 'Record supplier stock',
+        icon: 'solar:box-minimalistic-bold-duotone',
     },
     {
-        title: "Add product",
-        caption: "Create a catalog item",
-        icon: "solar:tag-price-bold-duotone",
+        title: 'Add product',
+        caption: 'Create a catalog item',
+        icon: 'solar:tag-price-bold-duotone',
     },
     {
-        title: "Journal voucher",
-        caption: "Post an entry",
-        icon: "solar:notebook-bold-duotone",
+        title: 'Journal voucher',
+        caption: 'Post an entry',
+        icon: 'solar:notebook-bold-duotone',
     },
 ];
 

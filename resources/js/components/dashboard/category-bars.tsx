@@ -1,5 +1,5 @@
-import type { CategorySales } from "@/components/dashboard/dashboard-data";
-import { formatCompactRupees } from "@/components/dashboard/panel";
+import type { CategorySales } from '@/components/dashboard/dashboard-data';
+import { formatCompactRupees } from '@/components/dashboard/panel';
 
 /**
  * Horizontal bars ranking categories by revenue, each with its share of the total.
@@ -21,7 +21,7 @@ export function CategoryBars({ data }: { data: CategorySales[] }) {
                     >
                         <div className="mb-1.5 flex items-baseline justify-between gap-3 text-[13px]">
                             <span className="font-medium">{item.category}</span>
-                            <span className="text-muted-foreground font-numeric">
+                            <span className="font-numeric text-muted-foreground">
                                 <span className="font-semibold text-foreground">
                                     Rs {formatCompactRupees(item.revenue)}
                                 </span>

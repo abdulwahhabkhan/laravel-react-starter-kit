@@ -1,7 +1,7 @@
-import { Icon } from "@iconify/react/offline";
-import { useId } from "react";
-import type { StatTileData } from "@/components/dashboard/dashboard-data";
-import { cn } from "@/lib/utils";
+import { Icon } from '@iconify/react/offline';
+import { useId } from 'react';
+import type { StatTileData } from '@/components/dashboard/dashboard-data';
+import { cn } from '@/lib/utils';
 
 function Sparkline({ values }: { values: number[] }) {
     const gradientId = useId();
@@ -14,7 +14,7 @@ function Sparkline({ values }: { values: number[] }) {
         (index / (values.length - 1)) * width,
         height - 3 - ((value - min) / range) * (height - 6),
     ]);
-    const line = points.map(([x, y]) => `${x},${y}`).join(" ");
+    const line = points.map(([x, y]) => `${x},${y}`).join(' ');
     const [lastX, lastY] = points[points.length - 1];
 
     return (
@@ -77,7 +77,7 @@ export function StatTile({ tile }: { tile: StatTileData }) {
 
             <div className="mt-2 flex items-end justify-between gap-3">
                 <div className="min-w-0">
-                    <p className="flex items-baseline gap-1 text-[28px] leading-none font-semibold tracking-tight font-numeric">
+                    <p className="flex items-baseline gap-1 font-numeric text-[28px] leading-none font-semibold tracking-tight">
                         {tile.unit && (
                             <span className="text-sm font-medium text-muted-foreground">
                                 {tile.unit}
@@ -88,23 +88,23 @@ export function StatTile({ tile }: { tile: StatTileData }) {
                     <p className="mt-2.5 flex items-center gap-1.5 text-xs text-muted-foreground">
                         <span
                             className={cn(
-                                "inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 font-semibold font-numeric",
+                                'inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 font-numeric font-semibold',
                                 isUp
-                                    ? "bg-emerald-600/10 text-emerald-700 dark:text-emerald-400"
-                                    : "bg-rose-600/10 text-rose-700 dark:text-rose-400",
+                                    ? 'bg-emerald-600/10 text-emerald-700 dark:text-emerald-400'
+                                    : 'bg-rose-600/10 text-rose-700 dark:text-rose-400',
                             )}
                         >
                             <Icon
                                 icon={
                                     isUp
-                                        ? "solar:arrow-right-up-linear"
-                                        : "solar:arrow-right-down-linear"
+                                        ? 'solar:arrow-right-up-linear'
+                                        : 'solar:arrow-right-down-linear'
                                 }
                                 className="size-3"
                                 aria-hidden="true"
                             />
                             <span className="sr-only">
-                                {isUp ? "Up" : "Down"}
+                                {isUp ? 'Up' : 'Down'}
                             </span>
                             {Math.abs(tile.change).toFixed(1)}%
                         </span>

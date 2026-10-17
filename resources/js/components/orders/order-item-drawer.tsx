@@ -1,23 +1,23 @@
-import { Icon } from "@iconify/react/offline";
-import { router, useForm } from "@inertiajs/react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import type { FormEvent, ReactNode } from "react";
-import InputError from "@/components/input-error";
-import { Money, formatQuantity, toNumber } from "@/components/orders/order-ui";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Icon } from '@iconify/react/offline';
+import { router, useForm } from '@inertiajs/react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { FormEvent, ReactNode } from 'react';
+import InputError from '@/components/input-error';
+import { Money, formatQuantity, toNumber } from '@/components/orders/order-ui';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
     Sheet,
     SheetContent,
     SheetDescription,
     SheetTitle,
-} from "@/components/ui/sheet";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Spinner } from "@/components/ui/spinner";
-import { cn } from "@/lib/utils";
-import { store, update } from "@/routes/orders/items";
-import type { OrderLine, ProductOption, UomOption } from "@/types";
+} from '@/components/ui/sheet';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Spinner } from '@/components/ui/spinner';
+import { cn } from '@/lib/utils';
+import { store, update } from '@/routes/orders/items';
+import type { OrderLine, ProductOption, UomOption } from '@/types';
 
 type ItemFormData = {
     product_id: number | null;
@@ -31,15 +31,15 @@ type ItemFormData = {
 
 const emptyItem: ItemFormData = {
     product_id: null,
-    description: "",
-    quantity: "1",
-    uom: "each",
-    unit_price: "",
-    discount: "",
-    tax_rate: "0",
+    description: '',
+    quantity: '1',
+    uom: 'each',
+    unit_price: '',
+    discount: '',
+    tax_rate: '0',
 };
 
-const taxPresets = ["0", "5", "17"];
+const taxPresets = ['0', '5', '17'];
 
 function itemFormData(item: OrderLine | null): ItemFormData {
     if (!item) {
@@ -49,10 +49,10 @@ function itemFormData(item: OrderLine | null): ItemFormData {
     return {
         product_id: item.product_id,
         description: item.description,
-        quantity: formatQuantity(item.quantity).replaceAll(",", ""),
+        quantity: formatQuantity(item.quantity).replaceAll(',', ''),
         uom: item.uom,
         unit_price: item.unit_price,
-        discount: toNumber(item.discount) > 0 ? item.discount : "",
+        discount: toNumber(item.discount) > 0 ? item.discount : '',
         tax_rate: String(toNumber(item.tax_rate)),
     };
 }
@@ -71,7 +71,7 @@ function Field({
     children: ReactNode;
 }) {
     return (
-        <div className={cn("grid content-start gap-1.5", className)}>
+        <div className={cn('grid content-start gap-1.5', className)}>
             <Label htmlFor={id} className="text-xs font-semibold">
                 {label}
             </Label>
@@ -93,7 +93,7 @@ function BreakdownRow({
     return (
         <div
             className={cn(
-                "flex items-center justify-between text-xs text-muted-foreground",
+                'flex items-center justify-between text-xs text-muted-foreground',
                 className,
             )}
         >
@@ -126,10 +126,10 @@ export function OrderItemDrawer({
 }) {
     const form = useForm<ItemFormData>(itemFormData(item));
     const { data, setData, errors, processing } = form;
-    const [query, setQuery] = useState("");
+    const [query, setQuery] = useState('');
     const [isPickingProduct, setIsPickingProduct] = useState(item === null);
-    const [discountMode, setDiscountMode] = useState<"amount" | "percent">(
-        "amount",
+    const [discountMode, setDiscountMode] = useState<'amount' | 'percent'>(
+        'amount',
     );
     const addAnother = useRef(false);
     const searchInput = useRef<HTMLInputElement>(null);
@@ -143,8 +143,8 @@ export function OrderItemDrawer({
 
         form.setData(itemFormData(item));
         form.clearErrors();
-        setQuery("");
-        setDiscountMode("amount");
+        setQuery('');
+        setDiscountMode('amount');
         setIsPickingProduct(item === null);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open, item?.id]);
@@ -152,7 +152,7 @@ export function OrderItemDrawer({
     // Products are an optional prop, fetched the first time the drawer opens.
     useEffect(() => {
         if (open && products === undefined) {
-            router.reload({ only: ["productOptions"] });
+            router.reload({ only: ['productOptions'] });
         }
     }, [open, products]);
 
@@ -160,7 +160,7 @@ export function OrderItemDrawer({
         const term = query.trim().toLowerCase();
         const list = products ?? [];
 
-        return term === ""
+        return term === ''
             ? list
             : list.filter((product) =>
                   `${product.name} ${product.sku}`.toLowerCase().includes(term),
@@ -176,7 +176,7 @@ export function OrderItemDrawer({
     const gross = quantity * unitPrice;
     const discountInput = toNumber(data.discount);
     const discount =
-        discountMode === "percent"
+        discountMode === 'percent'
             ? (gross * Math.min(discountInput, 100)) / 100
             : discountInput;
     const net = gross - discount;
@@ -199,7 +199,7 @@ export function OrderItemDrawer({
 
         form.transform((current) => ({
             ...current,
-            discount: discount > 0 ? discount.toFixed(2) : "0",
+            discount: discount > 0 ? discount.toFixed(2) : '0',
         }));
 
         const options = {
@@ -207,8 +207,8 @@ export function OrderItemDrawer({
             onSuccess: () => {
                 if (addAnother.current && !item) {
                     form.setData(emptyItem);
-                    setQuery("");
-                    setDiscountMode("amount");
+                    setQuery('');
+                    setDiscountMode('amount');
                     setIsPickingProduct(true);
                     requestAnimationFrame(() => searchInput.current?.focus());
                 } else {
@@ -232,20 +232,20 @@ export function OrderItemDrawer({
                         <Icon
                             icon={
                                 item
-                                    ? "solar:pen-2-bold-duotone"
-                                    : "solar:box-minimalistic-bold-duotone"
+                                    ? 'solar:pen-2-bold-duotone'
+                                    : 'solar:box-minimalistic-bold-duotone'
                             }
                             className="size-5"
                         />
                     </span>
                     <div className="grid gap-0.5 pr-6">
                         <SheetTitle className="text-base">
-                            {item ? "Edit item" : "Add item"}
+                            {item ? 'Edit item' : 'Add item'}
                         </SheetTitle>
                         <SheetDescription className="text-xs">
                             {item
-                                ? "Change the quantity, price or discount on this line."
-                                : "Pick a product, then set the quantity and price."}
+                                ? 'Change the quantity, price or discount on this line.'
+                                : 'Pick a product, then set the quantity and price.'}
                         </SheetDescription>
                     </div>
                 </div>
@@ -277,7 +277,7 @@ export function OrderItemDrawer({
                                             }
                                             onKeyDown={(event) => {
                                                 if (
-                                                    event.key === "Enter" &&
+                                                    event.key === 'Enter' &&
                                                     matches[0]
                                                 ) {
                                                     event.preventDefault();
@@ -311,10 +311,10 @@ export function OrderItemDrawer({
                                                         chooseProduct(product)
                                                     }
                                                     className={cn(
-                                                        "flex w-full items-center gap-3 rounded-md px-2.5 py-2 text-left transition-colors hover:bg-accent/70",
+                                                        'flex w-full items-center gap-3 rounded-md px-2.5 py-2 text-left transition-colors hover:bg-accent/70',
                                                         product.id ===
                                                             data.product_id &&
-                                                            "bg-sidebar-highlight/15",
+                                                            'bg-sidebar-highlight/15',
                                                     )}
                                                 >
                                                     <span className="grid size-8 shrink-0 place-items-center rounded-md bg-sidebar-tile text-sidebar-primary">
@@ -409,7 +409,7 @@ export function OrderItemDrawer({
                                         value={data.description}
                                         onChange={(event) =>
                                             setData(
-                                                "description",
+                                                'description',
                                                 event.target.value,
                                             )
                                         }
@@ -432,7 +432,7 @@ export function OrderItemDrawer({
                                         value={data.quantity}
                                         onChange={(event) =>
                                             setData(
-                                                "quantity",
+                                                'quantity',
                                                 event.target.value,
                                             )
                                         }
@@ -449,7 +449,7 @@ export function OrderItemDrawer({
                                         id="item-uom"
                                         value={data.uom}
                                         onChange={(event) =>
-                                            setData("uom", event.target.value)
+                                            setData('uom', event.target.value)
                                         }
                                         className="h-9 w-full rounded-md border border-input bg-card px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
                                     >
@@ -477,7 +477,7 @@ export function OrderItemDrawer({
                                         value={data.unit_price}
                                         onChange={(event) =>
                                             setData(
-                                                "unit_price",
+                                                'unit_price',
                                                 event.target.value,
                                             )
                                         }
@@ -501,7 +501,7 @@ export function OrderItemDrawer({
                                             value={data.discount}
                                             onChange={(event) =>
                                                 setData(
-                                                    "discount",
+                                                    'discount',
                                                     event.target.value,
                                                 )
                                             }
@@ -514,7 +514,7 @@ export function OrderItemDrawer({
                                             aria-label="Discount type"
                                         >
                                             {(
-                                                ["amount", "percent"] as const
+                                                ['amount', 'percent'] as const
                                             ).map((mode) => (
                                                 <button
                                                     key={mode}
@@ -526,14 +526,14 @@ export function OrderItemDrawer({
                                                         setDiscountMode(mode)
                                                     }
                                                     className={cn(
-                                                        "rounded px-2 text-[11px] font-semibold text-muted-foreground transition-colors",
+                                                        'rounded px-2 text-[11px] font-semibold text-muted-foreground transition-colors',
                                                         discountMode === mode &&
-                                                            "bg-card text-sidebar-primary shadow-xs",
+                                                            'bg-card text-sidebar-primary shadow-xs',
                                                     )}
                                                 >
-                                                    {mode === "amount"
-                                                        ? "Rs"
-                                                        : "%"}
+                                                    {mode === 'amount'
+                                                        ? 'Rs'
+                                                        : '%'}
                                                 </button>
                                             ))}
                                         </div>
@@ -556,7 +556,7 @@ export function OrderItemDrawer({
                                             value={data.tax_rate}
                                             onChange={(event) =>
                                                 setData(
-                                                    "tax_rate",
+                                                    'tax_rate',
                                                     event.target.value,
                                                 )
                                             }
@@ -568,14 +568,14 @@ export function OrderItemDrawer({
                                                 key={rate}
                                                 type="button"
                                                 onClick={() =>
-                                                    setData("tax_rate", rate)
+                                                    setData('tax_rate', rate)
                                                 }
                                                 className={cn(
-                                                    "rounded-full border px-3 text-xs font-semibold transition-colors",
+                                                    'rounded-full border px-3 text-xs font-semibold transition-colors',
                                                     toNumber(data.tax_rate) ===
                                                         toNumber(rate)
-                                                        ? "border-sidebar-primary bg-sidebar-primary text-white dark:text-sidebar-primary-foreground"
-                                                        : "border-border bg-card text-muted-foreground hover:border-sidebar-primary/40 hover:text-sidebar-primary",
+                                                        ? 'border-sidebar-primary bg-sidebar-primary text-white dark:text-sidebar-primary-foreground'
+                                                        : 'border-border bg-card text-muted-foreground hover:border-sidebar-primary/40 hover:text-sidebar-primary',
                                                 )}
                                             >
                                                 {rate}%
@@ -619,8 +619,8 @@ export function OrderItemDrawer({
                                 <Money
                                     value={net}
                                     className={cn(
-                                        "text-lg font-bold text-sidebar-primary",
-                                        net < 0 && "text-tone-red",
+                                        'text-lg font-bold text-sidebar-primary',
+                                        net < 0 && 'text-tone-red',
                                     )}
                                 />
                             </div>
@@ -663,7 +663,7 @@ export function OrderItemDrawer({
                             ) : (
                                 <Icon icon="solar:check-read-linear" />
                             )}
-                            {item ? "Save item" : "Add item"}
+                            {item ? 'Save item' : 'Add item'}
                         </Button>
                     </div>
                 </form>

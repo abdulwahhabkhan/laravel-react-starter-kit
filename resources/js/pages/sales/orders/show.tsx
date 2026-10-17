@@ -1,20 +1,20 @@
-import { Icon } from "@iconify/react/offline";
-import { Head, Link, setLayoutProps, usePage } from "@inertiajs/react";
-import { useEffect } from "react";
-import AppLogoIcon from "@/components/app-logo-icon";
+import { Icon } from '@iconify/react/offline';
+import { Head, Link, setLayoutProps, usePage } from '@inertiajs/react';
+import { useEffect } from 'react';
+import AppLogoIcon from '@/components/app-logo-icon';
 import {
     Money,
     OrderStatusBadge,
     formatDate,
     formatQuantity,
     toNumber,
-} from "@/components/orders/order-ui";
-import { PageContent, PageHeader } from "@/components/page";
-import { EditAction, PrintAction } from "@/components/row-actions";
-import { Button } from "@/components/ui/button";
-import { dashboard } from "@/routes";
-import { edit, index, show } from "@/routes/orders";
-import type { Order } from "@/types";
+} from '@/components/orders/order-ui';
+import { PageContent, PageHeader } from '@/components/page';
+import { EditAction, PrintAction } from '@/components/row-actions';
+import { Button } from '@/components/ui/button';
+import { dashboard } from '@/routes';
+import { edit, index, show } from '@/routes/orders';
+import type { Order } from '@/types';
 
 function Meta({ label, value }: { label: string; value: string }) {
     return (
@@ -32,11 +32,11 @@ export default function ShowOrder({ order }: { order: Order }) {
     const { customer } = order;
     const address = [customer.address_line_1, customer.city, customer.region]
         .filter(Boolean)
-        .join(", ");
+        .join(', ');
 
     // Opened from a "Print" action: print straight away.
     useEffect(() => {
-        if (new URLSearchParams(window.location.search).has("print")) {
+        if (new URLSearchParams(window.location.search).has('print')) {
             const timer = window.setTimeout(() => window.print(), 400);
 
             return () => window.clearTimeout(timer);
@@ -45,8 +45,8 @@ export default function ShowOrder({ order }: { order: Order }) {
 
     setLayoutProps({
         breadcrumbs: [
-            { title: "Dashboard", href: dashboard() },
-            { title: "Orders", href: index() },
+            { title: 'Dashboard', href: dashboard() },
+            { title: 'Orders', href: index() },
             { title: order.order_number, href: show(order.id) },
         ],
     });
@@ -99,7 +99,7 @@ export default function ShowOrder({ order }: { order: Order }) {
                                 </div>
                             </div>
                             <div className="text-right">
-                                <p className="text-xl font-bold tracking-tight text-sidebar-primary font-numeric">
+                                <p className="font-numeric text-xl font-bold tracking-tight text-sidebar-primary">
                                     {order.order_number}
                                 </p>
                                 <OrderStatusBadge
@@ -127,7 +127,7 @@ export default function ShowOrder({ order }: { order: Order }) {
                                     <p className="mt-1 text-xs text-muted-foreground">
                                         {[customer.phone, customer.email]
                                             .filter(Boolean)
-                                            .join(" · ")}
+                                            .join(' · ')}
                                     </p>
                                 )}
                             </div>
@@ -142,7 +142,7 @@ export default function ShowOrder({ order }: { order: Order }) {
                                 />
                                 <Meta
                                     label="Prepared by"
-                                    value={order.created_by ?? "—"}
+                                    value={order.created_by ?? '—'}
                                 />
                             </dl>
                         </div>
@@ -168,7 +168,7 @@ export default function ShowOrder({ order }: { order: Order }) {
                                             key={item.id}
                                             className="border-b border-border/70"
                                         >
-                                            <td className="text-muted-foreground font-numeric">
+                                            <td className="font-numeric text-muted-foreground">
                                                 {position + 1}
                                             </td>
                                             <td>
@@ -179,8 +179,8 @@ export default function ShowOrder({ order }: { order: Order }) {
                                                     {item.sku}
                                                 </p>
                                             </td>
-                                            <td className="text-right whitespace-nowrap font-numeric">
-                                                {formatQuantity(item.quantity)}{" "}
+                                            <td className="text-right font-numeric whitespace-nowrap">
+                                                {formatQuantity(item.quantity)}{' '}
                                                 <span className="text-muted-foreground">
                                                     {item.uom_label}
                                                 </span>
@@ -196,13 +196,13 @@ export default function ShowOrder({ order }: { order: Order }) {
                                                         value={item.discount}
                                                     />
                                                 ) : (
-                                                    "—"
+                                                    '—'
                                                 )}
                                             </td>
                                             <td className="text-right font-numeric">
                                                 {toNumber(item.tax_rate) > 0
                                                     ? `${toNumber(item.tax_rate)}%`
-                                                    : "—"}
+                                                    : '—'}
                                             </td>
                                             <td className="text-right font-semibold whitespace-nowrap">
                                                 <Money
@@ -253,7 +253,7 @@ export default function ShowOrder({ order }: { order: Order }) {
                                             Discount
                                         </dt>
                                         <dd className="text-tone-red">
-                                            −{" "}
+                                            −{' '}
                                             <Money
                                                 value={order.discount_total}
                                             />
