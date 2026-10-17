@@ -1,0 +1,62 @@
+name: release
+
+on:
+  workflow_run:
+    workflows:
+      - tests
+    types:
+      - completed
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+          MESSAGE: ${{ github.event.workflow_run.head_commit.message }}
+        run: |
+          if git tag --points-at "$SHA" | grep -q '^v'; then
+            echo "Commit $SHA is already tagged, skipping."
+            exit 0
+          fi
+
+          if [[ "$MESSAGE" == *'#skip-release'* ]]; then
+            echo "Commit message requests #skip-release, skipping."
+            exit 0
+          fi
+
+          latest=$(git tag --list 'v*' --sort=-v:refname | head -n1)
+          latest=${latest:-v0.0.0}
+          IFS=. read -r major minor patch <<< "${latest#v}"
+
+          if [[ "$MESSAGE" == *'#major'* ]]; then
+            major=$((major + 1)); minor=0; patch=0
+          elif [[ "$MESSAGE" == *'#minor'* ]]; then
+            minor=$((minor + 1)); patch=0
+          else
+            patch=$((patch + 1))
+          fi
+
+          version="v${major}.${minor}.${patch}"
+          echo "Releasing $version (previous: $latest)"
+          gh release create "$version" --target "$SHA" --title "$version" --generate-notes
