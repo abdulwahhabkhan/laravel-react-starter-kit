@@ -16,8 +16,6 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->route('account');
-
         return [
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:64'],

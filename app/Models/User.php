@@ -43,14 +43,6 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     use TwoFactorAuthenticatable;
 
     /**
-     * Determine if the user has the given role.
-     */
-    public function hasRole(Role $role): bool
-    {
-        return $this->role === $role;
-    }
-
-    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>

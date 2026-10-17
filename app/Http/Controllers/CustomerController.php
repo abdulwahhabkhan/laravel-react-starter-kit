@@ -96,21 +96,21 @@ class CustomerController extends Controller
     /**
      * Show the form for editing a customer.
      */
-    public function edit(Account $account): Response
+    public function edit(Account $customer): Response
     {
         return Inertia::render('sales/customers/edit', [
-            'customer' => $this->customerData($account),
+            'customer' => $this->customerData($customer),
         ]);
     }
 
     /**
      * Update the given customer.
      */
-    public function update(UpdateCustomerRequest $request, Account $account): RedirectResponse
+    public function update(UpdateCustomerRequest $request, Account $customer): RedirectResponse
     {
-        $account->update($request->validated());
+        $customer->update($request->validated());
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Customer :name updated.', ['name' => $account->name])]);
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Customer :name updated.', ['name' => $customer->name])]);
 
         return to_route('customers.index');
     }
@@ -118,11 +118,11 @@ class CustomerController extends Controller
     /**
      * Delete the given customer.
      */
-    public function destroy(Account $account): RedirectResponse
+    public function destroy(Account $customer): RedirectResponse
     {
-        $name = $account->name;
+        $name = $customer->name;
 
-        $account->delete();
+        $customer->delete();
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Customer :name deleted.', ['name' => $name])]);
 
